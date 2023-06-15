@@ -3511,18 +3511,18 @@ namespace EASEncoder.Models
             new SAMEMessageOriginator("WXR", "National Weather Service"),
             new SAMEMessageOriginator("PEP", "Primary Entry Point System"),
             new SAMEMessageOriginator("CAP", "Common Alerting Protocol"),
-            // Canada
-            new SAMEMessageOriginator("CAN", "Environment Canada", true),
-            new SAMEMessageOriginator("CCS", "Canadian Coast Guard", true),
-            new SAMEMessageOriginator("CDEM", "Civil Defence Emergency Measures", true),
-            new SAMEMessageOriginator("GAC", "Government of Canada", true),
-            new SAMEMessageOriginator("PSS", "Public Safety Canada", true),
-            // Mexico
-            new SAMEMessageOriginator("MXE", "Mexican EAS Participant", true),
-            new SAMEMessageOriginator("NWS", "Mexican National Weather Service", true),
-            new SAMEMessageOriginator("CEPC", "Mexican Civil Protection", true),
-            new SAMEMessageOriginator("FGR", "Mexican Attorney General's Office", true),
-            new SAMEMessageOriginator("SAT", "Mexican Tax Administration Service", true)
+            //// Canada
+            //new SAMEMessageOriginator("CAN", "Environment Canada", true),
+            //new SAMEMessageOriginator("CCS", "Canadian Coast Guard", true),
+            //new SAMEMessageOriginator("CDEM", "Civil Defence Emergency Measures", true),
+            //new SAMEMessageOriginator("GAC", "Government of Canada", true),
+            //new SAMEMessageOriginator("PSS", "Public Safety Canada", true),
+            //// Mexico
+            //new SAMEMessageOriginator("MXE", "Mexican EAS Participant", true),
+            //new SAMEMessageOriginator("NWS", "Mexican National Weather Service", true),
+            //new SAMEMessageOriginator("CEPC", "Mexican Civil Protection", true),
+            //new SAMEMessageOriginator("FGR", "Mexican Attorney General's Office", true),
+            //new SAMEMessageOriginator("SAT", "Mexican Tax Administration Service", true)
         };
 
         public static List<SAMEMessageAlertCode> AlertCodes = new List<SAMEMessageAlertCode>
