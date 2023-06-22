@@ -7,7 +7,7 @@
     <ProjectGuid>{20918895-68F1-4DB2-BDAA-CE82E93340CE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EASEncoder_Test_App</RootNamespace>
+    <RootNamespace>EASEncoder_UI</RootNamespace>
     <AssemblyName>EASEncoder UI</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,8 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>16bit.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -76,7 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Published|x64'">
     <OutputPath>bin\x64\Published\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>x64</PlatformTarget>
@@ -156,7 +156,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="eas-encoder.ico" />
+    <Content Include="16bit.ico" />
+    <None Include="Resources\EOM.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

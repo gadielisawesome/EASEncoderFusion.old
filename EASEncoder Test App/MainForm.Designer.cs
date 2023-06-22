@@ -1,4 +1,4 @@
-﻿namespace EASEncoder_Test_App
+﻿namespace EASEncoder_UI
 {
     partial class MainForm
     {
@@ -65,9 +65,10 @@
             this.btnTTSSettings = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.txtGeneratedData = new System.Windows.Forms.TextBox();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.chkBurstHeaders = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.PlayAlert = new System.Windows.Forms.Timer(this.components);
+            this.btnGenerateTTSOnly = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRegions)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             this.comboState.Size = new System.Drawing.Size(236, 29);
             this.comboState.TabIndex = 6;
             this.comboState.Tag = "disable";
-            this.comboState.SelectedIndexChanged += new System.EventHandler(this.comboState_SelectedIndexChanged);
+            this.comboState.SelectedIndexChanged += new System.EventHandler(this.ComboState_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -123,7 +124,7 @@
             this.comboCounty.Size = new System.Drawing.Size(217, 29);
             this.comboCounty.TabIndex = 7;
             this.comboCounty.Tag = "disable";
-            this.comboCounty.SelectedIndexChanged += new System.EventHandler(this.comboCounty_SelectedIndexChanged);
+            this.comboCounty.SelectedIndexChanged += new System.EventHandler(this.ComboCounty_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -150,7 +151,7 @@
             this.comboCode.Size = new System.Drawing.Size(477, 29);
             this.comboCode.TabIndex = 2;
             this.comboCode.Tag = "disable";
-            this.comboCode.SelectedIndexChanged += new System.EventHandler(this.comboCode_SelectedIndexChanged);
+            this.comboCode.SelectedIndexChanged += new System.EventHandler(this.ComboCode_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -177,7 +178,7 @@
             this.comboOriginator.Size = new System.Drawing.Size(278, 29);
             this.comboOriginator.TabIndex = 0;
             this.comboOriginator.Tag = "disable";
-            this.comboOriginator.SelectedIndexChanged += new System.EventHandler(this.comboOriginator_SelectedIndexChanged);
+            this.comboOriginator.SelectedIndexChanged += new System.EventHandler(this.ComboOriginator_SelectedIndexChanged);
             // 
             // dateStart
             // 
@@ -245,16 +246,16 @@
             this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenerate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 20.25F);
-            this.btnGenerate.Location = new System.Drawing.Point(962, 314);
+            this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.btnGenerate.Location = new System.Drawing.Point(962, 311);
             this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(147, 57);
             this.btnGenerate.TabIndex = 17;
             this.btnGenerate.Tag = "disable";
-            this.btnGenerate.Text = "Save";
+            this.btnGenerate.Text = "Save Output\r\nas *.WAV";
             this.btnGenerate.UseVisualStyleBackColor = false;
-            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
+            this.btnGenerate.Click += new System.EventHandler(this.BtnGenerate_Click);
             // 
             // chkEbsTones
             // 
@@ -300,7 +301,7 @@
             this.txtAnnouncement.Size = new System.Drawing.Size(450, 343);
             this.txtAnnouncement.TabIndex = 13;
             this.txtAnnouncement.Tag = "disable";
-            this.txtAnnouncement.TextChanged += new System.EventHandler(this.txtAnnouncement_TextChanged);
+            this.txtAnnouncement.TextChanged += new System.EventHandler(this.TxtAnnouncement_TextChanged);
             // 
             // btnGeneratePlay
             // 
@@ -311,11 +312,11 @@
             this.btnGeneratePlay.Location = new System.Drawing.Point(962, 86);
             this.btnGeneratePlay.Margin = new System.Windows.Forms.Padding(2);
             this.btnGeneratePlay.Name = "btnGeneratePlay";
-            this.btnGeneratePlay.Size = new System.Drawing.Size(147, 224);
+            this.btnGeneratePlay.Size = new System.Drawing.Size(147, 160);
             this.btnGeneratePlay.TabIndex = 16;
             this.btnGeneratePlay.Text = "PLAY";
             this.btnGeneratePlay.UseVisualStyleBackColor = false;
-            this.btnGeneratePlay.Click += new System.EventHandler(this.button1_Click);
+            this.btnGeneratePlay.Click += new System.EventHandler(this.Button1_Click);
             // 
             // datagridRegions
             // 
@@ -355,7 +356,7 @@
             this.btnAddRegion.Tag = "disable";
             this.btnAddRegion.Text = "Add Location";
             this.btnAddRegion.UseVisualStyleBackColor = false;
-            this.btnAddRegion.Click += new System.EventHandler(this.btnAddRegion_Click);
+            this.btnAddRegion.Click += new System.EventHandler(this.BtnAddRegion_Click);
             // 
             // label8
             // 
@@ -466,7 +467,7 @@
             this.lblOutputDirectory.Location = new System.Drawing.Point(505, 448);
             this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOutputDirectory.Name = "lblOutputDirectory";
-            this.lblOutputDirectory.Size = new System.Drawing.Size(350, 55);
+            this.lblOutputDirectory.Size = new System.Drawing.Size(350, 71);
             this.lblOutputDirectory.TabIndex = 100;
             this.lblOutputDirectory.Text = "./";
             // 
@@ -476,15 +477,15 @@
             this.btnAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAbout.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnAbout.Location = new System.Drawing.Point(962, 7);
+            this.btnAbout.Location = new System.Drawing.Point(962, 6);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(147, 36);
             this.btnAbout.TabIndex = 14;
             this.btnAbout.Tag = "disable";
-            this.btnAbout.Text = "About";
+            this.btnAbout.Text = "Open Fusion Settings";
             this.btnAbout.UseVisualStyleBackColor = false;
-            this.btnAbout.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnAbout.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // btnGenerateCustom
             // 
@@ -492,7 +493,7 @@
             this.btnGenerateCustom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnGenerateCustom.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnGenerateCustom.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerateCustom.Location = new System.Drawing.Point(962, 375);
+            this.btnGenerateCustom.Location = new System.Drawing.Point(962, 372);
             this.btnGenerateCustom.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerateCustom.Name = "btnGenerateCustom";
             this.btnGenerateCustom.Size = new System.Drawing.Size(147, 57);
@@ -500,7 +501,7 @@
             this.btnGenerateCustom.Tag = "disable";
             this.btnGenerateCustom.Text = "Generate EAS from Custom Data";
             this.btnGenerateCustom.UseVisualStyleBackColor = false;
-            this.btnGenerateCustom.Click += new System.EventHandler(this.button1_Click_2);
+            this.btnGenerateCustom.Click += new System.EventHandler(this.Button1_Click_2);
             // 
             // btnTTSSettings
             // 
@@ -508,7 +509,7 @@
             this.btnTTSSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnTTSSettings.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnTTSSettings.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnTTSSettings.Location = new System.Drawing.Point(962, 47);
+            this.btnTTSSettings.Location = new System.Drawing.Point(962, 46);
             this.btnTTSSettings.Margin = new System.Windows.Forms.Padding(2);
             this.btnTTSSettings.Name = "btnTTSSettings";
             this.btnTTSSettings.Size = new System.Drawing.Size(147, 36);
@@ -516,7 +517,7 @@
             this.btnTTSSettings.Tag = "disable";
             this.btnTTSSettings.Text = "Open TTS Settings";
             this.btnTTSSettings.UseVisualStyleBackColor = false;
-            this.btnTTSSettings.Click += new System.EventHandler(this.btnTTSSettings_Click);
+            this.btnTTSSettings.Click += new System.EventHandler(this.BtnTTSSettings_Click);
             // 
             // label13
             // 
@@ -541,11 +542,7 @@
             this.txtGeneratedData.ReadOnly = true;
             this.txtGeneratedData.Size = new System.Drawing.Size(476, 22);
             this.txtGeneratedData.TabIndex = 10;
-            this.txtGeneratedData.TextChanged += new System.EventHandler(this.txtGeneratedData_TextChanged);
-            // 
-            // timer
-            // 
-            this.timer.Interval = 500;
+            this.txtGeneratedData.TextChanged += new System.EventHandler(this.TxtGeneratedData_TextChanged);
             // 
             // chkBurstHeaders
             // 
@@ -573,7 +570,29 @@
             this.checkBox1.Tag = "disable";
             this.checkBox1.Text = "Six Headers";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            // 
+            // PlayAlert
+            // 
+            this.PlayAlert.Interval = 1000;
+            this.PlayAlert.Tick += new System.EventHandler(this.PlayAlert_Tick);
+            // 
+            // btnGenerateTTSOnly
+            // 
+            this.btnGenerateTTSOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGenerateTTSOnly.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.btnGenerateTTSOnly.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnGenerateTTSOnly.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.btnGenerateTTSOnly.Location = new System.Drawing.Point(962, 250);
+            this.btnGenerateTTSOnly.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGenerateTTSOnly.Name = "btnGenerateTTSOnly";
+            this.btnGenerateTTSOnly.Size = new System.Drawing.Size(147, 57);
+            this.btnGenerateTTSOnly.TabIndex = 103;
+            this.btnGenerateTTSOnly.Tag = "disable";
+            this.btnGenerateTTSOnly.Text = "Play w/o headers\r\n& attention tones";
+            this.btnGenerateTTSOnly.UseMnemonic = false;
+            this.btnGenerateTTSOnly.UseVisualStyleBackColor = false;
+            this.btnGenerateTTSOnly.Click += new System.EventHandler(this.btnGenerateTTSOnly_Click);
             // 
             // MainForm
             // 
@@ -581,6 +600,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1120, 561);
+            this.Controls.Add(this.btnGenerateTTSOnly);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.chkBurstHeaders);
             this.Controls.Add(this.txtGeneratedData);
@@ -617,13 +637,13 @@
             this.Controls.Add(this.comboCounty);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboState);
+            this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(1136, 600);
             this.Name = "MainForm";
-            this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EASEncoder Fusion";
@@ -635,8 +655,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ComboBox comboState;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -673,6 +691,8 @@
         private System.Windows.Forms.TextBox txtGeneratedData;
         private System.Windows.Forms.CheckBox chkBurstHeaders;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Timer PlayAlert;
+        private System.Windows.Forms.Button btnGenerateTTSOnly;
     }
 }
 

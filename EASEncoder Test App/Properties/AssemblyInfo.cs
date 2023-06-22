@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("EASEncoder Test App")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("EASEncoder Fusion")]
+[assembly: AssemblyDescription("EASEncoder Fusion")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EASEncoder Test App")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("EASEncoder Fusion")]
+[assembly: AssemblyCopyright("gadielisawesome")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

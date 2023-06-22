@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
 using System.Text;
@@ -119,7 +120,7 @@ namespace EASEncoderFusion
                 GenerateVoiceAnnouncement(announcement);
             _announcementSamples = _announcementStream.Length;
 
-                GenerateWavFile();  
+                GenerateWavFile();
                 //GenerateMp3File();  
         }
 
@@ -596,7 +597,10 @@ namespace EASEncoderFusion
             return stream.ToArray();
         }
 
-        private static byte[] GenerateVoiceAnnouncement(string announcement, int volume = 100, int rate = 1)
+        private static SpeechSynthesizer synthesizer;
+        private static ManagementEventWatcher watcher;
+
+        public static byte[] GenerateVoiceAnnouncement(string announcement, int volume = 100, int rate = 1)
         {
             // volume: 0 to 100
             // rate: negative10 to positive10
@@ -607,12 +611,14 @@ namespace EASEncoderFusion
             var synthesizer = new SpeechSynthesizer();
             var waveStream = new MemoryStream();
             // Get the installed voices, then choose ScanSoft Tom. If it doesn't exist, it automatically selects the Default voice.
-            var firstOrDefault = synthesizer.GetInstalledVoices()
-                .FirstOrDefault(x => x.VoiceInfo.Name.ToUpper().Contains("VW Paul"));
-            if (firstOrDefault != null)
-                synthesizer.SelectVoice(
-                    firstOrDefault
-                        .VoiceInfo.Name);
+            var selectedVoice = synthesizer.GetInstalledVoices()
+                                           .FirstOrDefault(x => x.VoiceInfo.Name == synthesizer.Voice.Name);
+
+            if (selectedVoice != null)
+            {
+                // Select the updated voice
+                synthesizer.SelectVoice(selectedVoice.VoiceInfo.Name);
+            }
 
             // We also set the speech output.
             synthesizer.SetOutputToAudioStream(waveStream,

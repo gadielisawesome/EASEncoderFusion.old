@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EASEncoder_Test_App
+namespace EASEncoder_UI
 {
     public partial class CustomGenForm : Form
     {
@@ -35,6 +35,29 @@ namespace EASEncoder_Test_App
         private void txtOutputFile_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+            this.Size = new Size(544, 574);
+            button3.Enabled = false;
+            button4.Show();
+            this.ResumeLayout();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+            this.Size = new Size(920, 574);
+            button3.Enabled = true;
+            button4.Hide();
+            this.ResumeLayout();
         }
     }
 }

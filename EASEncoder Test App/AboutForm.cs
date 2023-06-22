@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EASEncoder_Test_App
+namespace EASEncoder_UI
 {
     public partial class AboutForm : Form
     {
@@ -51,6 +51,31 @@ namespace EASEncoder_Test_App
                 UseShellExecute = true
             };
             Process.Start(psInfo);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("Output Errors and Warnings Quietly - This will silence any errors and warnings that may occur while using the app.");
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
