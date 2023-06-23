@@ -181,7 +181,7 @@
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(242, 19);
             this.checkBox3.TabIndex = 25;
-            this.checkBox3.Text = "Wait 10 seconds before relaying message";
+            this.checkBox3.Text = "Wait 15 seconds before relaying message";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // AboutForm

@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace EASEncoder_UI
 {
-    public partial class ActivateForm : Form
+    public partial class UnusedActivateForm : Form
     {
-        public ActivateForm()
+        public UnusedActivateForm()
         {
             InitializeComponent();
         }

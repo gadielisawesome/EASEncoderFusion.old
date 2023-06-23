@@ -101,11 +101,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivateForm.cs">
+    <Compile Include="UnusedActivateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ActivateForm.Designer.cs">
-      <DependentUpon>ActivateForm.cs</DependentUpon>
+    <Compile Include="UnusedActivateForm.Designer.cs">
+      <DependentUpon>UnusedActivateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
@@ -138,8 +138,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ActivateForm.resx">
-      <DependentUpon>ActivateForm.cs</DependentUpon>
+    <EmbeddedResource Include="UnusedActivateForm.resx">
+      <DependentUpon>UnusedActivateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
