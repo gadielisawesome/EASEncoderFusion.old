@@ -117,11 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label5.Text" xml:space="preserve">
+    <value>This program generates valid S.A.M.E. headers.
+Transmitting these tones over the air can cause
+panic and is strictly prohibited by federal law.
+Engaging in such activities may result in fines
+or imprisonment. Do not rely on this software
+during life-threatening situations.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAWgAAADBCAYAAADigSpHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA6/AAAOvwE4BVMkAABPK0lE
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA69AAAOvQFH+5CtAABPK0lE
         QVR4Xu2dCbwO1RvH3xBFhUQhQosWkTVFKFtIC61kKRHZy3Jd97q2JOvfTrayi0gp+75kzRpCCVFRIpW0
         Pf/zO/ecjLln5p1533mX+77n+/n8PvfOO2dmzsz7zjNnznnO8/hIo4lj/vrrL9q9ezdNmzaNkpOT6fnn
         n6dHHnmEihcvTjfffDPdcMMNlDt3bipcuDDde++9VLJkSSpXrhxXqVKleLkiRYpQnjx5KFeuXJQvXz4q
@@ -462,14 +470,6 @@
         GZ74AK3wQoUK8S4IZIlBrGcYXBhglEFIUsT5xUAeQrPCCCPIP7pdNBr3EP0fDuylsskynn4AAAAASUVO
         RK5CYII=
 </value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>This program generates valid S.A.M.E. headers.
-Transmitting these tones over the air can cause
-panic and is strictly prohibited by federal law.
-Engaging in such activities may result in fines
-or imprisonment. Do not rely on this software
-during life-threatening situations.</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

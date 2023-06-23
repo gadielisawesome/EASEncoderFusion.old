@@ -6,15 +6,12 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Reflection;
-using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
 using EASEncoder.Models;
 using EASEncoder.Models.SAME;
 using EASEncoder_UI.Properties;
 using NAudio.Wave;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace EASEncoder_UI
 {
@@ -39,8 +36,13 @@ namespace EASEncoder_UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (Screen.PrimaryScreen.Bounds.Width < 1280 || Screen.PrimaryScreen.Bounds.Height < 720)
+            {
+                this.MaximizeBox = false;
+                this.WindowState = FormWindowState.Maximized;
+            }
             SpeechSynthesizer synthesizer = new SpeechSynthesizer();
-            lblOutputDirectory.Text = Application.ExecutablePath;
+            lblOutputDirectory.Text = Environment.CurrentDirectory;
             var bindingList = new BindingList<SAMERegion>(Regions);
             var source = new BindingSource(bindingList, null);
             datagridRegions.DataSource = source;
@@ -116,7 +118,7 @@ namespace EASEncoder_UI
             _selectedOriginator = MessageTypes.Originators.FirstOrDefault(y => y.Name == comboOriginator.Text);
             if (comboOriginator.SelectedItem.ToString() == "Mock Alert")
             {
-                MessageBox.Show("You have activated the Mock Alert. Select any other originator to disable. This is a feature that attempts to prevent activations of TVs and radios. It attempts to achieve this by modifying the S.A.M.E. preamble, and setting the originator to an unknown value (MCK). This will also disable using custom Sender IDs, and will generate a randomized one.\n\nIf the originator (MCK) becomes an actual originator, it will be changed in the next version.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("You have activated the Mock Alert. Select any other originator to disable. This is a feature that attempts to prevent activations of TVs and radios. It attempts to achieve this by modifying the S.A.M.E. preamble, and setting the originator to an unknown value (MCK). This will also disable using custom Sender IDs, and will generate a randomized one.\n\nIf the originator (MCK) becomes an actual originator, it will be changed in the next version.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtSender.Text = new string(Enumerable.Range(65, 26).OrderBy(_ => Guid.NewGuid()).Take(8).Select(x => (char)x).ToArray());
                 txtSender.ReadOnly = true;
             }
@@ -125,7 +127,7 @@ namespace EASEncoder_UI
             var selectedOriginator = MessageTypes.Originators.FirstOrDefault(x => x.Name == comboOriginator.SelectedItem.ToString());
             if (selectedOriginator != null && selectedOriginator.Broken)
             {
-                MessageBox.Show("This originator may be erratic and unstable. Consider using a different originator.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("This originator may be erratic and unstable. Consider using a different originator.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -136,18 +138,18 @@ namespace EASEncoder_UI
 
         private void ComboBox1_DrawItem(object sender, DrawItemEventArgs e)
         {
-            // Check if the current item is the "Mock Alert" item
-            if (e.Index >= 0 && comboOriginator.Items[e.Index].ToString() == "Mock Alert")
-            {
-                // Set the desired color for the "Mock Alert" item
-                e.Graphics.DrawString(comboOriginator.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
-            }
-            else
-            {
-                // Set the default color for other items
-                e.DrawBackground();
-                e.Graphics.DrawString(comboOriginator.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
-            }
+            //// Check if the current item is the "Mock Alert" item
+            //if (e.Index >= 0 && comboOriginator.Items[e.Index].ToString() == "Mock Alert")
+            //{
+            //    // Set the desired color for the "Mock Alert" item
+            //    e.Graphics.DrawString(comboOriginator.Items[e.Index].ToString(), e.Font, Brushes.Red, e.Bounds);
+            //}
+            //else
+            //{
+            //    // Set the default color for other items
+            //    e.DrawBackground();
+            //    e.Graphics.DrawString(comboOriginator.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds);
+            //}
         }
 
 
@@ -166,13 +168,12 @@ namespace EASEncoder_UI
 
             if (String.IsNullOrEmpty(txtOutputFile.Text))
             {
-                MessageBox.Show("You must enter a valid output file name for the EAS audio message.", "EASEncoder Fusion", MessageBoxButtons.OK);
-
+                MessageBox.Show("You must enter a valid output file name for the EAS audio message.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var generatedData = EASEncoderFusion.EASEncoderFusion.CreateNewMessage(newMessage, chkEbsTones.Checked, chkNwsTone.Checked,
-                FormatAnnouncement(txtAnnouncement.Text), txtOutputFile.Text, chkBurstHeaders.Checked);
+                FormatAnnouncement(txtAnnouncement.Text), chkBurstHeaders.Checked);
             var generatedData2 = generatedData.Replace("\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab", "[Preamble]");
             txtGeneratedData.Text = generatedData2;
         }
@@ -223,44 +224,42 @@ namespace EASEncoder_UI
         {
             if (String.IsNullOrEmpty(txtSender.Text) || txtSender.TextLength != 8)
             {
-                MessageBox.Show("You must enter a valid 'Sender' id.  Ensure the id is exactly 8 characters in length.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("You must enter a 'Sender' id.  Ensure it is 8 characters in length.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (String.IsNullOrEmpty(comboOriginator.Text))
             {
-                MessageBox.Show("You must select an 'Originator' from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("You must select an 'Originator' from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (String.IsNullOrEmpty(comboCode.Text))
             {
-                MessageBox.Show("You must select a 'Code' (event) from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("You must select a 'Code' (event) from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (String.IsNullOrEmpty(comboLengthHour.Text))
             {
-                MessageBox.Show("You must select a 'Length Hour' from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("You must select a 'Length Hour' from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (String.IsNullOrEmpty(comboLengthMinutes.Text))
             {
-                MessageBox.Show("You must select a 'Length Minute' from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("You must select a 'Length Minute' from the drop down menu.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             if (Regions.Count < 1)
             {
-                MessageBox.Show("You must add at least 1 location (state/county) to the locations list.", "EASEncoder Fusion", MessageBoxButtons.OK);
+                MessageBox.Show("You must add at least 1 location (state/county) to the locations list.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             return true;
         }
-
-        private bool isBlinking = false;
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -270,17 +269,6 @@ namespace EASEncoder_UI
                 DialogResult response = MessageBox.Show("Are you sure you want to end your message early?\n\nPress ABORT to abruptly stop the message.\nPress RETRY to stop the message with EOM.\nPress IGNORE to go back.", "EASEncoder Fusion", MessageBoxButtons.AbortRetryIgnore);
                 if (response == DialogResult.Abort)
                 {
-                    if (PlayAlertTime < 6)
-                    {
-                        DialogResult quick = MessageBox.Show("Ending your message during a header is generally not a good idea.\n\nPress YES to abruptly stop the message.\nPress NO to go back.", "EASEncoder Fusion", MessageBoxButtons.YesNo);
-                        if (quick == DialogResult.No)
-                        {
-                            btnGeneratePlay.Enabled = true;
-                            return;
-                        }
-                    }
-                    PlayAlert.Stop();
-                    PlayAlertTime = 0;
                     player.Stop();
                     player = null;
                     EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
@@ -289,17 +277,6 @@ namespace EASEncoder_UI
                 }
                 else if (response == DialogResult.Retry)
                 {
-                    if (PlayAlertTime < 6)
-                    {
-                        DialogResult quick = MessageBox.Show("Ending your message during a header is generally not a good idea.\n\nPress YES to stop the message with EOM.\nPress NO to go back.", "EASEncoder Fusion", MessageBoxButtons.YesNo);
-                        if (quick == DialogResult.No)
-                        {
-                            btnGeneratePlay.Enabled = true;
-                            return;
-                        }
-                    }
-                    PlayAlert.Stop();
-                    PlayAlertTime = 0;
                     player.Stop();
                     player = null;
                     new SoundPlayer(Resources.EOM).PlaySync();
@@ -346,13 +323,20 @@ namespace EASEncoder_UI
             player.PlaybackStopped += (o, args) =>
             {
                 this.SuspendLayout();
-                try { if (player != null) player.Dispose(); } catch (Exception) { }
+                try { player = null; player?.Dispose();  } catch (Exception) { }
                 EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
                 this.ResumeLayout();
                 btnGeneratePlay.Text = "PLAY";
             };
 
             player.Init(volumeStream);
+
+            if (Settings.Default.UseCountdown)
+            {
+                btnGeneratePlay.Enabled = false;
+                PlayCountdown.Start();
+                return;
+            }
 
             player.Play();
         }
@@ -364,7 +348,7 @@ namespace EASEncoder_UI
         }
 
         private void BtnAddRegion_Click(object sender, EventArgs e)
-        { 
+        {
             if (comboState.SelectedIndex >= 0 && comboCounty.SelectedIndex >= 0 && !Regions.Exists(x => x.County.Id == _selectedCounty.Id && x.State.Id == _selectedState.Id))
             {
                 Regions.Add(new SAMERegion(_selectedState, _selectedCounty));
@@ -411,7 +395,7 @@ namespace EASEncoder_UI
                 CustomGenForm customEncode = new CustomGenForm();
                 if (customEncode.ShowDialog(this) == DialogResult.OK)
                 {
-                    EASEncoderFusion.EASEncoderFusion.CreateNewMessageFromRawData(message: customEncode.txtCustomData.Text, ebsTone: customEncode.checkBoxEBS.Checked, nwsTone: customEncode.checkBoxNWR.Checked, announcement: FormatAnnouncement(customEncode.txtAnnouncement.Text), filename: customEncode.txtOutputFile.Text);
+                    EASEncoderFusion.EASEncoderFusion.CreateNewMessageFromRawData(message: customEncode.txtCustomData.Text, ebsTone: customEncode.checkBoxEBS.Checked, nwsTone: customEncode.checkBoxNWR.Checked, announcement: FormatAnnouncement(customEncode.txtAnnouncement.Text));
                 }
                 else
                 {
@@ -421,7 +405,7 @@ namespace EASEncoder_UI
 
         private void BtnTTSSettings_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Although you can change the default speech instrument, it may not reflect or change here.");
+            MessageBox.Show("Although you can change the default speech instrument, it may not reflect or change here.\nSome voices are incompatible.");
             //int b = 0;
             //_ = 1 / b;
             Process.Start("C:\\WINDOWS\\SYSWOW64\\SPEECH\\SPEECHUX\\SAPI.CPL");
@@ -448,7 +432,7 @@ namespace EASEncoder_UI
             if (checkBox1.Checked)
             {
                 checkBox1.Checked = false;
-                MessageBox.Show("That feature is unavailable.");
+                throw new NotImplementedException();
             }
         }
 
@@ -457,37 +441,61 @@ namespace EASEncoder_UI
 
         }
 
-        int PlayAlertTime = 0;
-
-        private void PlayAlert_Tick(object sender, EventArgs e)
-        {
-            PlayAlertTime++;
-        }
-
         private void btnGenerateTTSOnly_Click(object sender, EventArgs e)
         {
-            var synthesizer = new SpeechSynthesizer();
-            var waveStream = new MemoryStream();
-            var selectedVoice = synthesizer.GetInstalledVoices()
-                                           .FirstOrDefault(x => x.VoiceInfo.Name == synthesizer.Voice.Name);
-
-            if (selectedVoice != null)
+            DisableElementsWithTag.DisableControlsWithTag(this.Controls, "disable");
+            btnGeneratePlay.Enabled = false;
+            try
             {
-                // Select the updated voice
-                synthesizer.SelectVoice(selectedVoice.VoiceInfo.Name);
+                var synthesizer = new SpeechSynthesizer
+                {
+                    Volume = 100
+                };
+
+                var audioStream = new MemoryStream();
+                synthesizer.SetOutputToWaveStream(audioStream);
+
+                synthesizer.Speak(txtAnnouncement.Text);
+
+                synthesizer.SetOutputToDefaultAudioDevice();
+
+                audioStream.Position = 0;
+                using (var audioPlayer = new SoundPlayer(audioStream))
+                {
+                    audioPlayer.PlaySync();
+                }
             }
+            catch (Exception)
+            {
 
-            synthesizer.SetOutputToAudioStream(waveStream,
-                new SpeechAudioFormatInfo(EncodingFormat.Pcm,
-                    44100, 16, 2, 176400, 2, null));
+            }
+            finally
+            {
+                EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
+                btnGeneratePlay.Enabled = true;
+            }
+        }
 
-            synthesizer.Volume = 100;
+        private void chkBurstHeaders_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBurstHeaders.Checked) MessageBox.Show("This feature is experimental and should not be used in production environments.", "EASEncoder Fusion", MessageBoxButtons.OK);
+        }
 
-            synthesizer.Speak(txtAnnouncement.Text);
+        int i = 15;
 
-            synthesizer.SetOutputToNull();
-
-            new SoundPlayer(waveStream).Play();
+        private void PlayCountdown_Tick(object sender, EventArgs e)
+        {
+            if (PlayCountdown.Interval < 1000) PlayCountdown.Interval = 1000;
+            btnGeneratePlay.Text = i.ToString();
+            if (i != 0) i--;
+            else
+            {
+                PlayCountdown.Stop();
+                i = 15;
+                btnGeneratePlay.Enabled = true;
+                btnGeneratePlay.Text = "STOP";
+                player.Play();
+            }
         }
     }
     public static class DisableElementsWithTag

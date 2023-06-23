@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Management;
 using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
 using System.Text;
 using EASEncoder.Models;
-using NAudio.Lame;
-using NAudio.Wave;
 
 namespace EASEncoderFusion
 {
@@ -119,13 +116,12 @@ namespace EASEncoderFusion
             _announcementStream =
                 GenerateVoiceAnnouncement(announcement);
             _announcementSamples = _announcementStream.Length;
-
-                GenerateWavFile();
-                //GenerateMp3File();  
+            
+            GenerateWavFile(filename);
         }
 
         public static string CreateNewMessage(EASMessage message, bool ebsTone = true, bool nwsTone = false,
-            string announcement = "An alert has been issued, but no message has been specified for this announcement. This may be a test of the Emergency Alert System (EAS). However, if this alert is not a test, we will provide a subsequent announcement with the necessary information. Please remain alert and attentive for any further updates or instructions. Your safety and well-being are our utmost priority. Thank you for your understanding and cooperation.", string filename = "output", bool burst = false)
+            string announcement = "An alert has been issued, but no message has been specified for this announcement. This may be a test of the Emergency Alert System (EAS). However, if this alert is not a test, we will provide a subsequent announcement with the necessary information. Please remain alert and attentive for any further updates or instructions. Your safety and well-being are our utmost priority. Thank you for your understanding and cooperation.", bool burst = false)
         {
             _useEbsTone = ebsTone;
             _useNwsTone = nwsTone;
@@ -232,6 +228,13 @@ namespace EASEncoderFusion
 
             byte[] byteArray;
 
+            //1 second silence
+            _silenceSamples = new List<int>();
+            while (_silenceSamples.Count < 176400)
+            {
+                _silenceSamples.Add(0);
+            }
+
             if (burst)
             {
                 //Encoding.Default.GetBytes(message.ToSameHeaderString());
@@ -240,7 +243,7 @@ namespace EASEncoderFusion
                 //    //byteArray.A
                 //}
 
-                byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString() + message.ToSameHeaderString());
+                byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString() + message.ToSameHeaderString() + message.ToSameHeaderString());
             }
             else byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString());
             var volume = 5000;
@@ -303,12 +306,7 @@ namespace EASEncoderFusion
                 _eomSamples = c;
             }
 
-            //1 second silence
-            _silenceSamples = new List<int>();
-            while (_silenceSamples.Count < 176400)
-            {
-                _silenceSamples.Add(0);
-            }
+            
 
             _ebsTonesStream = GenerateEbsTones();
             _ebsToneSamples = _ebsTonesStream.Length;
@@ -316,8 +314,8 @@ namespace EASEncoderFusion
             _nwsTonesStream = GenerateNwsTones();
             _nwstoneSamples = _nwsTonesStream.Length;
 
-            _totalSamples = (TotalHeaderSamples*3) + (totalSilenceSamples*7) + (TotalEomSamples*3) + (_ebsToneSamples*8) +
-                           (_nwstoneSamples*8);
+            _totalSamples = (TotalHeaderSamples * 3) + (totalSilenceSamples * 7) + (TotalEomSamples * 3) + (_ebsToneSamples * 8) +
+                           (_nwstoneSamples * 8);
 
             _announcementStream =
                 GenerateVoiceAnnouncement(announcement);
@@ -377,15 +375,6 @@ namespace EASEncoderFusion
                 GenerateMemoryStream().CopyTo(wr.BaseStream);
             }
             f.Close();
-        }
-
-        private static void GenerateMp3File(string filename = "output")
-        {
-            // The mp3 output is currently bugged. While it does play correctly, the timeline does not appear properly, so scrubbing is almost impossible.
-            //if (MessageBox.Show("Generating MP3 files work, but are buggy. Do you want to generate an MP3 file anyway?", "EASEncoder", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) return;
-            using (var reader = new WaveFileReader(GenerateMemoryStream()))
-            using (var writer = new LameMP3FileWriter(filename + ".mp3", reader.WaveFormat, LAMEPreset.ABR_32))
-                reader.CopyTo(writer);
         }
 
         private static MemoryStream GenerateMemoryStream(int header_samp = 3, int silence_samp = 8, int eom_samp = 3)
@@ -555,14 +544,14 @@ namespace EASEncoderFusion
                 if (i%2 == 0)
                 {
                     var t = i/(double) samplesPerSecond;
-                    var s = (short) (ampl*(Math.Sin(t*853.0*concert*2.0*Math.PI)));
+                    var s = (short) (ampl*Math.Sin(t*853.0*concert*2.0*Math.PI));
                     writer.Write(s);
                     writer.Write(s);
                 }
                 else
                 {
                     var t = i/(double) samplesPerSecond;
-                    var s = (short) (ampl*(Math.Sin(t*960.0*concert*2.0*Math.PI)));
+                    var s = (short)(ampl*Math.Sin(t*960.0*concert*2.0*Math.PI));
                     writer.Write(s);
                     writer.Write(s);
                 }
@@ -587,8 +576,8 @@ namespace EASEncoderFusion
             var concert = 1.0;
             for (var i = 0; i < samples/2; i++)
             {
-                var t = i/(double) samplesPerSecond;
-                var s = (short) (ampl*(Math.Sin(t*1050.0*concert*2.0*Math.PI)));
+                var t = i/(double)samplesPerSecond;
+                var s = (short)(ampl*Math.Sin(t*1050.0*concert*2.0*Math.PI));
                 writer.Write(s);
                 writer.Write(s);
             }
@@ -597,8 +586,30 @@ namespace EASEncoderFusion
             return stream.ToArray();
         }
 
-        private static SpeechSynthesizer synthesizer;
-        private static ManagementEventWatcher watcher;
+        private static byte[] GenerateCensorTones()
+        {
+            // Create a memory stream, and a binary writer pointing to the memory stream.
+            var stream = new MemoryStream();
+            var writer = new BinaryWriter(stream);
+
+            // Set the samples, and double it.
+            var samplesPerSecond = 44100;
+            var samples = samplesPerSecond * 2;
+
+            // Play the tone for 5000 milliseconds.
+            double ampl = 5000;
+            var concert = 1.0;
+            for (var i = 0; i < samples / 2; i++)
+            {
+                var t = i / (double)samplesPerSecond;
+                var s = (short)(ampl * Math.Sin(t * 1000.0 * concert * 2.0 * Math.PI));
+                writer.Write(s);
+                writer.Write(s);
+            }
+            writer.Close();
+            stream.Close();
+            return stream.ToArray();
+        }
 
         public static byte[] GenerateVoiceAnnouncement(string announcement, int volume = 100, int rate = 1)
         {
@@ -610,13 +621,13 @@ namespace EASEncoderFusion
             // Create a speech synthesizer, then a memory stream to pipe the output.
             var synthesizer = new SpeechSynthesizer();
             var waveStream = new MemoryStream();
-            // Get the installed voices, then choose ScanSoft Tom. If it doesn't exist, it automatically selects the Default voice.
+            // Get the installed voices, then select the default voice.
             var selectedVoice = synthesizer.GetInstalledVoices()
                                            .FirstOrDefault(x => x.VoiceInfo.Name == synthesizer.Voice.Name);
 
             if (selectedVoice != null)
             {
-                // Select the updated voice
+                // Select the updated voice.
                 synthesizer.SelectVoice(selectedVoice.VoiceInfo.Name);
             }
 

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.comboState = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,8 +67,8 @@
             this.txtGeneratedData = new System.Windows.Forms.TextBox();
             this.chkBurstHeaders = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.PlayAlert = new System.Windows.Forms.Timer(this.components);
             this.btnGenerateTTSOnly = new System.Windows.Forms.Button();
+            this.PlayCountdown = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.datagridRegions)).BeginInit();
             this.SuspendLayout();
             // 
@@ -262,11 +262,11 @@
             this.chkEbsTones.AutoSize = true;
             this.chkEbsTones.Checked = true;
             this.chkEbsTones.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEbsTones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkEbsTones.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkEbsTones.Location = new System.Drawing.Point(508, 13);
             this.chkEbsTones.Margin = new System.Windows.Forms.Padding(2);
             this.chkEbsTones.Name = "chkEbsTones";
-            this.chkEbsTones.Size = new System.Drawing.Size(203, 24);
+            this.chkEbsTones.Size = new System.Drawing.Size(189, 25);
             this.chkEbsTones.TabIndex = 11;
             this.chkEbsTones.Tag = "disable";
             this.chkEbsTones.Text = "Use EBS Attention Tone";
@@ -275,11 +275,11 @@
             // chkNwsTone
             // 
             this.chkNwsTone.AutoSize = true;
-            this.chkNwsTone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkNwsTone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkNwsTone.Location = new System.Drawing.Point(508, 41);
             this.chkNwsTone.Margin = new System.Windows.Forms.Padding(2);
             this.chkNwsTone.Name = "chkNwsTone";
-            this.chkNwsTone.Size = new System.Drawing.Size(207, 24);
+            this.chkNwsTone.Size = new System.Drawing.Size(199, 25);
             this.chkNwsTone.TabIndex = 12;
             this.chkNwsTone.Tag = "disable";
             this.chkNwsTone.Text = "Use NWS Attention Tone";
@@ -298,6 +298,7 @@
             this.txtAnnouncement.Margin = new System.Windows.Forms.Padding(2);
             this.txtAnnouncement.Multiline = true;
             this.txtAnnouncement.Name = "txtAnnouncement";
+            this.txtAnnouncement.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtAnnouncement.Size = new System.Drawing.Size(450, 343);
             this.txtAnnouncement.TabIndex = 13;
             this.txtAnnouncement.Tag = "disable";
@@ -325,15 +326,15 @@
             this.datagridRegions.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.datagridRegions.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.datagridRegions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.WindowFrame;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.NullValue = "Unknown Event Location";
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.datagridRegions.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.WindowFrame;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.NullValue = "Unknown Event Location";
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.datagridRegions.DefaultCellStyle = dataGridViewCellStyle4;
             this.datagridRegions.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.datagridRegions.Location = new System.Drawing.Point(9, 291);
             this.datagridRegions.Margin = new System.Windows.Forms.Padding(2);
@@ -452,11 +453,11 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(505, 431);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(350, 17);
+            this.label12.Size = new System.Drawing.Size(333, 17);
             this.label12.TabIndex = 100;
             this.label12.Text = "Audio files will be outputed in the program directory at:";
             // 
@@ -467,7 +468,7 @@
             this.lblOutputDirectory.Location = new System.Drawing.Point(505, 448);
             this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOutputDirectory.Name = "lblOutputDirectory";
-            this.lblOutputDirectory.Size = new System.Drawing.Size(350, 71);
+            this.lblOutputDirectory.Size = new System.Drawing.Size(350, 49);
             this.lblOutputDirectory.TabIndex = 100;
             this.lblOutputDirectory.Text = "./";
             // 
@@ -547,35 +548,31 @@
             // chkBurstHeaders
             // 
             this.chkBurstHeaders.AutoSize = true;
-            this.chkBurstHeaders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkBurstHeaders.Location = new System.Drawing.Point(720, 13);
+            this.chkBurstHeaders.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkBurstHeaders.Location = new System.Drawing.Point(723, 13);
             this.chkBurstHeaders.Margin = new System.Windows.Forms.Padding(2);
             this.chkBurstHeaders.Name = "chkBurstHeaders";
-            this.chkBurstHeaders.Size = new System.Drawing.Size(144, 24);
+            this.chkBurstHeaders.Size = new System.Drawing.Size(222, 25);
             this.chkBurstHeaders.TabIndex = 101;
             this.chkBurstHeaders.Tag = "disable";
-            this.chkBurstHeaders.Text = "Double Headers";
+            this.chkBurstHeaders.Text = "Use SASMEX (Experimental)";
             this.chkBurstHeaders.UseVisualStyleBackColor = true;
+            this.chkBurstHeaders.CheckedChanged += new System.EventHandler(this.chkBurstHeaders_CheckedChanged);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.ForeColor = System.Drawing.Color.Gray;
-            this.checkBox1.Location = new System.Drawing.Point(720, 41);
+            this.checkBox1.Location = new System.Drawing.Point(723, 41);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(114, 24);
+            this.checkBox1.Size = new System.Drawing.Size(110, 25);
             this.checkBox1.TabIndex = 102;
             this.checkBox1.Tag = "disable";
             this.checkBox1.Text = "Six Headers";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
-            // 
-            // PlayAlert
-            // 
-            this.PlayAlert.Interval = 1000;
-            this.PlayAlert.Tick += new System.EventHandler(this.PlayAlert_Tick);
             // 
             // btnGenerateTTSOnly
             // 
@@ -593,6 +590,11 @@
             this.btnGenerateTTSOnly.UseMnemonic = false;
             this.btnGenerateTTSOnly.UseVisualStyleBackColor = false;
             this.btnGenerateTTSOnly.Click += new System.EventHandler(this.btnGenerateTTSOnly_Click);
+            // 
+            // PlayCountdown
+            // 
+            this.PlayCountdown.Interval = 5;
+            this.PlayCountdown.Tick += new System.EventHandler(this.PlayCountdown_Tick);
             // 
             // MainForm
             // 
@@ -641,6 +643,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(1136, 600);
             this.Name = "MainForm";
@@ -691,8 +694,8 @@
         private System.Windows.Forms.TextBox txtGeneratedData;
         private System.Windows.Forms.CheckBox chkBurstHeaders;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Timer PlayAlert;
         private System.Windows.Forms.Button btnGenerateTTSOnly;
+        private System.Windows.Forms.Timer PlayCountdown;
     }
 }
 

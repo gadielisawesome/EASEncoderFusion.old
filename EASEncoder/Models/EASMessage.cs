@@ -3605,10 +3605,10 @@ namespace EASEncoder.Models
             new SAMEMessageAlertCode("TXO", "Transmitter Carrier On"),
             new SAMEMessageAlertCode("TXP", "Transmitter Primary On"),
             // Canada
-            new SAMEMessageAlertCode("CAE", "[US/CA] Child Abduction Emergency"),
-            new SAMEMessageAlertCode("CPS", "[CA] Canadian Public Safety Alert"),
-            new SAMEMessageAlertCode("CNS", "[CA] Canadian National Security Message"),
-            new SAMEMessageAlertCode("CTM", "[CA] Canadian Test Message"),
+            new SAMEMessageAlertCode("CAE", "Child Abduction Emergency"),
+            new SAMEMessageAlertCode("CPS", "[CAN] Canadian Public Safety Alert"),
+            new SAMEMessageAlertCode("CNS", "[CAN] Canadian National Security Message"),
+            new SAMEMessageAlertCode("CTM", "[CAN] Canadian Test Message"),
             // Mexico
             new SAMEMessageAlertCode("CAM", "[MEX] Mexican Amber Alert"),
             new SAMEMessageAlertCode("CTE", "[MEX] Mexican Test Emergency"),
@@ -3629,14 +3629,14 @@ namespace EASEncoder.Models
 
     public class EASMessage
     {
-        private static string Preamble = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab";
+        private static readonly string Preamble = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab";
 
         private readonly string _code;
         private readonly string _length;
         private readonly string _originator;
         private readonly List<SAMERegion> _regions;
         private readonly string _sender;
-        private DateTime _start;
+        private readonly DateTime _start;
 
         public EASMessage(string Originator, string Code, List<SAMERegion> Regions, string Length,
             DateTime Start,
