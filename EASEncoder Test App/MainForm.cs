@@ -166,14 +166,14 @@ namespace EASEncoder_UI
             var newMessage = new EASMessage(_selectedOriginator.Id, _selectedAlertCode.Id,
                 Regions, _length, _start, _senderId);
 
-            if (String.IsNullOrEmpty(txtOutputFile.Text))
+            if (string.IsNullOrEmpty(txtOutputFile.Text))
             {
                 MessageBox.Show("You must enter a valid output file name for the EAS audio message.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var generatedData = EASEncoderFusion.EASEncoderFusion.CreateNewMessage(newMessage, chkEbsTones.Checked, chkNwsTone.Checked,
-                FormatAnnouncement(txtAnnouncement.Text), chkBurstHeaders.Checked);
+                FormatAnnouncement(txtAnnouncement.Text), chkBurstHeaders.Checked, txtOutputFile.Text);
             var generatedData2 = generatedData.Replace("\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab", "[Preamble]");
             txtGeneratedData.Text = generatedData2;
         }

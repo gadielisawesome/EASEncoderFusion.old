@@ -35,7 +35,7 @@ namespace EASEncoderFusion
         public static void CreateNewMessageFromRawData(string message, bool ebsTone = true, bool nwsTone = false, string announcement = "", string filename = "output")
         {
             // These two strings are VERY important and altering them will cause any listening radios to malfunction or not respond to the EAS message.
-            // Do NOT alter these strings unless you know what you are trying to do!
+            // Do not alter these strings!
             string Preamble = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab";
             string EOM = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xabNNNN";
             _useEbsTone = ebsTone;
@@ -121,15 +121,34 @@ namespace EASEncoderFusion
         }
 
         public static string CreateNewMessage(EASMessage message, bool ebsTone = true, bool nwsTone = false,
-            string announcement = "An alert has been issued, but no message has been specified for this announcement. This may be a test of the Emergency Alert System (EAS). However, if this alert is not a test, we will provide a subsequent announcement with the necessary information. Please remain alert and attentive for any further updates or instructions. Your safety and well-being are our utmost priority. Thank you for your understanding and cooperation.", bool burst = false)
+            string announcement = "", bool burst = false, string filename = "output")
         {
+            // These two strings are VERY important and altering them will cause any listening radios to malfunction or not respond to the EAS message.
+            // Do not alter these strings!
+            string Preamble = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab";
+            string EOM = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xabNNNN";
             _useEbsTone = ebsTone;
             _useNwsTone = nwsTone;
             _announcement = announcement;
 
             _headerSamples = new int[0];
-            var byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString());
+
+            Byte[] byteArray;
             var volume = 5000;
+
+            if (burst)
+            {
+                //Encoding.Default.GetBytes(message.ToSameHeaderString());
+                //foreach (byte bit in Encoding.Default.GetBytes(message.ToSameHeaderString()))
+                //{
+                //    //byteArray.A
+                //}
+
+                //byteArray = Encoding.Default.GetBytes($"{Preamble}ZCZC-{message}" + $"{Preamble}ZCZC-{message}" + $"{Preamble}ZCZC-{message}");
+                byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString() + message.ToSameHeaderString() + message.ToSameHeaderString());
+
+            }
+            else byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString());
 
             var byteSpec = new List<SameWavBit>();
             byte thisByte;
@@ -141,7 +160,7 @@ namespace EASEncoderFusion
 
                 for (var e = 0; e < 8; e++)
                 {
-                    thisBit = ((thisByte & (short) Math.Pow(2, e)) != 0 ? Mark : Space);
+                    thisBit = ((thisByte & (short)Math.Pow(2, e)) != 0 ? Mark : Space);
                     byteSpec.Add(new SameWavBit(thisBit.frequency, thisBit.length, volume));
                 }
             }
@@ -156,17 +175,8 @@ namespace EASEncoderFusion
                 _headerSamples = c;
             }
 
-            if (burst)
-            {
-                //int[] headersamp = _headerSamples;
-                //foreach (var header_samp in headersamp)
-                //{
-                //    _headerSamples.Append(header_samp);
-                //}
-            }
-
             _eomSamples = new int[0];
-            byteArray = Encoding.Default.GetBytes(message.ToSameEndOfMessageString());
+            byteArray = Encoding.Default.GetBytes($"{EOM}");
             volume = 5000;
 
             byteSpec = new List<SameWavBit>();
@@ -177,7 +187,7 @@ namespace EASEncoderFusion
 
                 for (var e = 0; e < 8; e++)
                 {
-                    thisBit = ((thisByte & (short) Math.Pow(2, e)) != 0 ? Mark : Space);
+                    thisBit = ((thisByte & (short)Math.Pow(2, e)) != 0 ? Mark : Space);
                     byteSpec.Add(new SameWavBit(thisBit.frequency, thisBit.length, volume));
                 }
             }
@@ -191,7 +201,7 @@ namespace EASEncoderFusion
                 _eomSamples = c;
             }
 
-            //1 second silence
+            // We add a 1 second silence here.
             _silenceSamples = new List<int>();
             while (_silenceSamples.Count < 176400)
             {
@@ -204,15 +214,14 @@ namespace EASEncoderFusion
             _nwsTonesStream = GenerateNwsTones();
             _nwstoneSamples = _nwsTonesStream.Length;
 
-            _totalSamples = (TotalHeaderSamples*3) + (totalSilenceSamples*7) + (TotalEomSamples*3) + (_ebsToneSamples*8) +
-                           (_nwstoneSamples*8);
+            _totalSamples = (TotalHeaderSamples * 3) + (totalSilenceSamples * 7) + (TotalEomSamples * 3) + (_ebsToneSamples * 8) +
+                           (_nwstoneSamples * 8);
 
             _announcementStream =
                 GenerateVoiceAnnouncement(announcement);
             _announcementSamples = _announcementStream.Length;
 
-            GenerateWavFile();
-            //GenerateMp3File();
+            GenerateWavFile(filename);
 
             return message.ToSameHeaderString();
         }

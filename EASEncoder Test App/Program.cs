@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -13,9 +14,6 @@ namespace EASEncoder_UI
         [STAThread]
         internal static void Main()
         {
-            Thread thread;
-            thread = Thread.CurrentThread;
-
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ApplicationExit += ProperTermination;
             Application.ThreadException += UnhandledTermination;
