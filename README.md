@@ -6,7 +6,18 @@ This enhanced version offers new features that aren't in the original version of
 * National location codes added.
 * Mock originator, to prevent actual system activations.
 * Made the theme dark.
+* Ability to export alerts as wave files (*.wav)
 * Some planned features will be implemented, such as the ability to save EAS messages and import it for later use, the ability to decode EAS messages, the ability to change interface color.
+
+## Mock Originator
+The mock originator was created to prevent actual system activations.
+The originator will also modify the preamble of the message.
+
+From this: `<Preamble>ZCZC-ORG-EEE-PSSCCC+TTTT-JJJHHMM-LLLLLLLL-` 
+To this: `0<Preamble>YXYX-ORG-EEE-PSSCCC+TTTT-JJJHHMM-LLLLLLLL-`
+
+The hope of this is to prevent radios and decoders from processing the message as an alert.
+If you enable the mock originator and your radio or decoder still records an event, please create an issue with the model of your radio/decoder so I can try and fix it in the next update.
 
 ## Build
 1. Download or clone this repository.
