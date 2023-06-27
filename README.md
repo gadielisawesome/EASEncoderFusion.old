@@ -1,5 +1,14 @@
 EASEncoder Fusion is based on the original EASEncoder by SotaJoe.
 
+# Incorrect usage of SAPI voices
+There has been a few people confused on how to set them up properly. Here's a tiny guide to help.
+
+This is incorrect.
+![Incorrect](https://github.com/gadielisawesome/EASEncoderFusion/assets/51249136/d3f5797d-d398-4189-8edd-027a6ba3a8ee)
+
+This is correct.
+![Correct](https://github.com/gadielisawesome/EASEncoderFusion/assets/51249136/b64776c0-eab1-4a70-8f2f-b1204f70c15e)
+
 ## New features
 This enhanced version offers new features that aren't in the original version of EASEncoder:
 * Ability to encode EAS messages from raw data.
@@ -9,7 +18,7 @@ This enhanced version offers new features that aren't in the original version of
 * Ability to export alerts as wave files (*.wav)
 * Some planned features will be implemented, such as the ability to save EAS messages and import it for later use, the ability to decode EAS messages, the ability to change interface color.
 
-## Mock Originator
+## Mock
 The mock originator was created to prevent actual system activations.
 The originator will also modify the preamble of the message.
 
