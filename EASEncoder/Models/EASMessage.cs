@@ -10,7 +10,7 @@ namespace EASEncoder.Models
         public static List<SAMECounty> Counties = new List<SAMECounty>
         {
             //National - 00
-            new SAMECounty(000, "United States (National)", new SAMEState(00, "All of United States")),
+            new SAMECounty(000, "United States", new SAMEState(00, "All of United States")),
 
             //Mock - 999
             //new SAMECounty(999, "Mock State", new SAMEState(999, "Mock State")),
@@ -3425,7 +3425,7 @@ namespace EASEncoder.Models
 
         public static List<SAMEState> States = new List<SAMEState>
         {
-            new SAMEState(00, "National"),
+            new SAMEState(00, "National (USA/CANADA)"),
             new SAMEState(10, "Delaware"),
             new SAMEState(11, "District of Columbia"),
             new SAMEState(12, "Florida"),
@@ -3511,7 +3511,7 @@ namespace EASEncoder.Models
             new SAMEMessageOriginator("WXR", "National Weather Service"),
             new SAMEMessageOriginator("PEP", "Primary Entry Point System"),
             new SAMEMessageOriginator("CAP", "Common Alerting Protocol"),
-            //// Canada
+            //// Canada (buggy, don't work properly)
             //new SAMEMessageOriginator("CAN", "Environment Canada", true),
             //new SAMEMessageOriginator("CCS", "Canadian Coast Guard", true),
             //new SAMEMessageOriginator("CDEM", "Civil Defence Emergency Measures", true),
@@ -3606,24 +3606,24 @@ namespace EASEncoder.Models
             new SAMEMessageAlertCode("TXP", "Transmitter Primary On"),
             // Canada
             new SAMEMessageAlertCode("CAE", "Child Abduction Emergency"),
-            new SAMEMessageAlertCode("CPS", "[CAN] Canadian Public Safety Alert"),
-            new SAMEMessageAlertCode("CNS", "[CAN] Canadian National Security Message"),
-            new SAMEMessageAlertCode("CTM", "[CAN] Canadian Test Message"),
-            // Mexico
-            new SAMEMessageAlertCode("CAM", "[MEX] Mexican Amber Alert"),
-            new SAMEMessageAlertCode("CTE", "[MEX] Mexican Test Emergency"),
-            new SAMEMessageAlertCode("CMP", "[MEX] Mexican Civil Protection"),
-            new SAMEMessageAlertCode("CNP", "[MEX] Mexican National Security"),
-            new SAMEMessageAlertCode("CES", "[MEX] Mexican Earthquake and Tsunami"),
-            new SAMEMessageAlertCode("CFZ", "[MEX] Mexican Flood Zone"),
-            new SAMEMessageAlertCode("CCA", "[MEX] Mexican Chemical and Nuclear Accident"),
-            new SAMEMessageAlertCode("CSW", "[MEX] Mexican Severe Weather"),
-            new SAMEMessageAlertCode("CVW", "[MEX] Mexican Volcano Warning"),
-            new SAMEMessageAlertCode("CDD", "[MEX] Mexican Drought"),
-            new SAMEMessageAlertCode("CVE", "[MEX] Mexican Evacuation"),
-            new SAMEMessageAlertCode("CBI", "[MEX] Mexican Biological Incident"),
-            new SAMEMessageAlertCode("CET", "[MEX] Mexican Earthquake and Tsunami Test"),
-            new SAMEMessageAlertCode("CFA", "[MEX] Mexican Fire Alert"),
+            //new SAMEMessageAlertCode("CPS", "[CAN] Canadian Public Safety Alert"),
+            //new SAMEMessageAlertCode("CNS", "[CAN] Canadian National Security Message"),
+            //new SAMEMessageAlertCode("CTM", "[CAN] Canadian Test Message"),
+            //// Mexico
+            //new SAMEMessageAlertCode("CAM", "[MEX] Mexican Amber Alert"),
+            //new SAMEMessageAlertCode("CTE", "[MEX] Mexican Test Emergency"),
+            //new SAMEMessageAlertCode("CMP", "[MEX] Mexican Civil Protection"),
+            //new SAMEMessageAlertCode("CNP", "[MEX] Mexican National Security"),
+            //new SAMEMessageAlertCode("CES", "[MEX] Mexican Earthquake and Tsunami"),
+            //new SAMEMessageAlertCode("CFZ", "[MEX] Mexican Flood Zone"),
+            //new SAMEMessageAlertCode("CCA", "[MEX] Mexican Chemical and Nuclear Accident"),
+            //new SAMEMessageAlertCode("CSW", "[MEX] Mexican Severe Weather"),
+            //new SAMEMessageAlertCode("CVW", "[MEX] Mexican Volcano Warning"),
+            //new SAMEMessageAlertCode("CDD", "[MEX] Mexican Drought"),
+            //new SAMEMessageAlertCode("CVE", "[MEX] Mexican Evacuation"),
+            //new SAMEMessageAlertCode("CBI", "[MEX] Mexican Biological Incident"),
+            //new SAMEMessageAlertCode("CET", "[MEX] Mexican Earthquake and Tsunami Test"),
+            //new SAMEMessageAlertCode("CFA", "[MEX] Mexican Fire Alert"),
         };
     }
 

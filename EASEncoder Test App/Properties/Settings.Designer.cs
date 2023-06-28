@@ -26,6 +26,7 @@ namespace EASEncoder_UI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public bool SilenceErrors {
             get {
                 return ((bool)(this["SilenceErrors"]));
@@ -38,6 +39,7 @@ namespace EASEncoder_UI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public bool Use95Design {
             get {
                 return ((bool)(this["Use95Design"]));
@@ -50,6 +52,7 @@ namespace EASEncoder_UI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public bool UseCountdown {
             get {
                 return ((bool)(this["UseCountdown"]));
@@ -63,12 +66,37 @@ namespace EASEncoder_UI.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public bool IsActivated {
+        public bool LegacyFont {
             get {
-                return ((bool)(this["IsActivated"]));
+                return ((bool)(this["LegacyFont"]));
             }
             set {
-                this["IsActivated"] = value;
+                this["LegacyFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public bool QuitOnFinish {
+            get {
+                return ((bool)(this["QuitOnFinish"]));
+            }
+            set {
+                this["QuitOnFinish"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LowRes {
+            get {
+                return ((bool)(this["LowRes"]));
+            }
+            set {
+                this["LowRes"] = value;
             }
         }
     }

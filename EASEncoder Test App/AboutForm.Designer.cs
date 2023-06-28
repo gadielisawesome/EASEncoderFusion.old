@@ -37,18 +37,24 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.lblLowRes = new System.Windows.Forms.Label();
+            this.btnResetSettings = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblDiscordIntegration = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(6, 352);
+            this.label1.Location = new System.Drawing.Point(6, 373);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(258, 37);
             this.label1.TabIndex = 1;
@@ -56,6 +62,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.label2.ForeColor = System.Drawing.Color.White;
@@ -71,6 +78,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.Red;
@@ -83,11 +91,11 @@
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenerate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 18F);
-            this.btnGenerate.Location = new System.Drawing.Point(643, 296);
+            this.btnGenerate.Location = new System.Drawing.Point(643, 317);
             this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(147, 57);
@@ -99,11 +107,11 @@
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.button1.Location = new System.Drawing.Point(643, 357);
+            this.button1.Location = new System.Drawing.Point(643, 378);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(147, 30);
@@ -123,7 +131,6 @@
             this.checkBox1.TabIndex = 21;
             this.checkBox1.Text = "Output errors and warnings quietly";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label3
             // 
@@ -150,18 +157,6 @@
             this.linkLabel1.Text = "Click here.";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(473, 296);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(165, 90);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
@@ -184,23 +179,118 @@
             this.checkBox3.Text = "Wait 15 seconds before relaying message";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBox4.Location = new System.Drawing.Point(13, 122);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(117, 19);
+            this.checkBox4.TabIndex = 26;
+            this.checkBox4.Text = "Use Legacy Fonts";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBox5.Location = new System.Drawing.Point(13, 147);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(325, 19);
+            this.checkBox5.TabIndex = 27;
+            this.checkBox5.Text = "Quit after message finishes (doesn\'t affect manual stops)";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // lblLowRes
+            // 
+            this.lblLowRes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblLowRes.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblLowRes.ForeColor = System.Drawing.Color.White;
+            this.lblLowRes.Location = new System.Drawing.Point(-293, -121);
+            this.lblLowRes.Name = "lblLowRes";
+            this.lblLowRes.Size = new System.Drawing.Size(288, 116);
+            this.lblLowRes.TabIndex = 28;
+            this.lblLowRes.Text = resources.GetString("lblLowRes.Text");
+            this.lblLowRes.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // btnResetSettings
+            // 
+            this.btnResetSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.btnResetSettings.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnResetSettings.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.btnResetSettings.Location = new System.Drawing.Point(13, 348);
+            this.btnResetSettings.Margin = new System.Windows.Forms.Padding(2);
+            this.btnResetSettings.Name = "btnResetSettings";
+            this.btnResetSettings.Size = new System.Drawing.Size(147, 30);
+            this.btnResetSettings.TabIndex = 30;
+            this.btnResetSettings.Tag = "disable";
+            this.btnResetSettings.Text = "Reset All Settings";
+            this.btnResetSettings.UseVisualStyleBackColor = false;
+            this.btnResetSettings.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.Black;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBox1.Location = new System.Drawing.Point(13, 199);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(276, 23);
+            this.textBox1.TabIndex = 31;
+            this.textBox1.Visible = false;
+            // 
+            // lblDiscordIntegration
+            // 
+            this.lblDiscordIntegration.AutoSize = true;
+            this.lblDiscordIntegration.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblDiscordIntegration.ForeColor = System.Drawing.Color.White;
+            this.lblDiscordIntegration.Location = new System.Drawing.Point(10, 179);
+            this.lblDiscordIntegration.Name = "lblDiscordIntegration";
+            this.lblDiscordIntegration.Size = new System.Drawing.Size(112, 17);
+            this.lblDiscordIntegration.TabIndex = 32;
+            this.lblDiscordIntegration.Text = "Discord Webhook";
+            this.lblDiscordIntegration.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.lblDiscordIntegration.Visible = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button2.BackgroundImage = global::EASEncoder_UI.Properties.Resources.error;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.button2.Location = new System.Drawing.Point(294, 199);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(23, 23);
+            this.button2.TabIndex = 33;
+            this.button2.Tag = "disable";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Visible = false;
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(801, 398);
+            this.ClientSize = new System.Drawing.Size(801, 419);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.lblDiscordIntegration);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnResetSettings);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnGenerate);
+            this.Controls.Add(this.lblLowRes);
+            this.Controls.Add(this.checkBox5);
+            this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnGenerate);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -210,9 +300,8 @@
             this.Name = "AboutForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Settings";
+            this.Text = "EASEncoder Fusion Settings";
             this.Load += new System.EventHandler(this.AboutForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,8 +316,14 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Label lblLowRes;
+        private System.Windows.Forms.Button btnResetSettings;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblDiscordIntegration;
+        private System.Windows.Forms.Button button2;
     }
 }

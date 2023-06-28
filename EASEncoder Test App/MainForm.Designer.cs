@@ -32,16 +32,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.comboState = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblState = new System.Windows.Forms.Label();
+            this.lblCounty = new System.Windows.Forms.Label();
             this.comboCounty = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblCode = new System.Windows.Forms.Label();
             this.comboCode = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblOriginator = new System.Windows.Forms.Label();
             this.comboOriginator = new System.Windows.Forms.ComboBox();
             this.dateStart = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblEventBegin = new System.Windows.Forms.Label();
+            this.lblValidHours = new System.Windows.Forms.Label();
             this.txtSender = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnGenerate = new System.Windows.Forms.Button();
@@ -51,26 +51,47 @@
             this.btnGeneratePlay = new System.Windows.Forms.Button();
             this.datagridRegions = new System.Windows.Forms.DataGridView();
             this.btnAddRegion = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblAddedLocations = new System.Windows.Forms.Label();
+            this.lblAnnouncement = new System.Windows.Forms.Label();
             this.comboLengthHour = new System.Windows.Forms.ComboBox();
             this.comboLengthMinutes = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblValidMinutes = new System.Windows.Forms.Label();
             this.txtOutputFile = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblFileName = new System.Windows.Forms.Label();
+            this.lblOutput = new System.Windows.Forms.Label();
             this.lblOutputDirectory = new System.Windows.Forms.Label();
             this.btnAbout = new System.Windows.Forms.Button();
             this.btnGenerateCustom = new System.Windows.Forms.Button();
             this.btnTTSSettings = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblGeneratedHeader = new System.Windows.Forms.Label();
             this.txtGeneratedData = new System.Windows.Forms.TextBox();
             this.chkBurstHeaders = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnGenerateTTSOnly = new System.Windows.Forms.Button();
             this.PlayCountdown = new System.Windows.Forms.Timer(this.components);
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.lblVoice = new System.Windows.Forms.Label();
+            this.combo = new System.Windows.Forms.ComboBox();
+            this.LocationContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCopyHeader = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.EditContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolUndoRedo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.datagridRegions)).BeginInit();
+            this.LocationContextMenu.SuspendLayout();
+            this.EditContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboState
@@ -89,27 +110,27 @@
             this.comboState.Tag = "disable";
             this.comboState.SelectedIndexChanged += new System.EventHandler(this.ComboState_SelectedIndexChanged);
             // 
-            // label1
+            // lblState
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label1.Location = new System.Drawing.Point(6, 191);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 15);
-            this.label1.TabIndex = 100;
-            this.label1.Text = "State";
+            this.lblState.AutoSize = true;
+            this.lblState.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblState.Location = new System.Drawing.Point(6, 191);
+            this.lblState.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(33, 15);
+            this.lblState.TabIndex = 100;
+            this.lblState.Text = "State";
             // 
-            // label2
+            // lblCounty
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label2.Location = new System.Drawing.Point(265, 191);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 15);
-            this.label2.TabIndex = 100;
-            this.label2.Text = "County";
+            this.lblCounty.AutoSize = true;
+            this.lblCounty.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblCounty.Location = new System.Drawing.Point(265, 191);
+            this.lblCounty.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCounty.Name = "lblCounty";
+            this.lblCounty.Size = new System.Drawing.Size(46, 15);
+            this.lblCounty.TabIndex = 100;
+            this.lblCounty.Text = "County";
             // 
             // comboCounty
             // 
@@ -127,16 +148,16 @@
             this.comboCounty.Tag = "disable";
             this.comboCounty.SelectedIndexChanged += new System.EventHandler(this.ComboCounty_SelectedIndexChanged);
             // 
-            // label3
+            // lblCode
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label3.Location = new System.Drawing.Point(6, 69);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 15);
-            this.label3.TabIndex = 100;
-            this.label3.Text = "Code";
+            this.lblCode.AutoSize = true;
+            this.lblCode.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblCode.Location = new System.Drawing.Point(6, 69);
+            this.lblCode.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCode.Name = "lblCode";
+            this.lblCode.Size = new System.Drawing.Size(35, 15);
+            this.lblCode.TabIndex = 100;
+            this.lblCode.Text = "Code";
             // 
             // comboCode
             // 
@@ -154,16 +175,16 @@
             this.comboCode.Tag = "disable";
             this.comboCode.SelectedIndexChanged += new System.EventHandler(this.ComboCode_SelectedIndexChanged);
             // 
-            // label4
+            // lblOriginator
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label4.Location = new System.Drawing.Point(6, 12);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 15);
-            this.label4.TabIndex = 100;
-            this.label4.Text = "Originator";
+            this.lblOriginator.AutoSize = true;
+            this.lblOriginator.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblOriginator.Location = new System.Drawing.Point(6, 12);
+            this.lblOriginator.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOriginator.Name = "lblOriginator";
+            this.lblOriginator.Size = new System.Drawing.Size(61, 15);
+            this.lblOriginator.TabIndex = 100;
+            this.lblOriginator.Text = "Originator";
             // 
             // comboOriginator
             // 
@@ -197,39 +218,43 @@
             this.dateStart.TabIndex = 3;
             this.dateStart.Tag = "disable";
             // 
-            // label5
+            // lblEventBegin
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label5.Location = new System.Drawing.Point(6, 132);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 15);
-            this.label5.TabIndex = 100;
-            this.label5.Text = "Event Begin Time";
+            this.lblEventBegin.AutoSize = true;
+            this.lblEventBegin.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblEventBegin.Location = new System.Drawing.Point(6, 132);
+            this.lblEventBegin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEventBegin.Name = "lblEventBegin";
+            this.lblEventBegin.Size = new System.Drawing.Size(98, 15);
+            this.lblEventBegin.TabIndex = 100;
+            this.lblEventBegin.Text = "Event Begin Time";
             // 
-            // label6
+            // lblValidHours
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label6.Location = new System.Drawing.Point(296, 132);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(93, 15);
-            this.label6.TabIndex = 100;
-            this.label6.Text = "Valid for (Hours)";
+            this.lblValidHours.AutoSize = true;
+            this.lblValidHours.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblValidHours.Location = new System.Drawing.Point(296, 132);
+            this.lblValidHours.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblValidHours.Name = "lblValidHours";
+            this.lblValidHours.Size = new System.Drawing.Size(93, 15);
+            this.lblValidHours.TabIndex = 100;
+            this.lblValidHours.Text = "Valid for (Hours)";
             // 
             // txtSender
             // 
             this.txtSender.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.txtSender.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSender.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtSender.ForeColor = System.Drawing.Color.White;
             this.txtSender.Location = new System.Drawing.Point(299, 29);
             this.txtSender.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSender.MaxLength = 8;
+            this.txtSender.Multiline = true;
             this.txtSender.Name = "txtSender";
             this.txtSender.Size = new System.Drawing.Size(187, 29);
             this.txtSender.TabIndex = 1;
             this.txtSender.Tag = "disable";
+            this.txtSender.TextChanged += new System.EventHandler(this.txtSender_TextChanged);
             // 
             // label7
             // 
@@ -252,7 +277,7 @@
             this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(147, 57);
-            this.btnGenerate.TabIndex = 17;
+            this.btnGenerate.TabIndex = 20;
             this.btnGenerate.Tag = "disable";
             this.btnGenerate.Text = "Save Output\r\nas *.WAV";
             this.btnGenerate.UseVisualStyleBackColor = false;
@@ -293,7 +318,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAnnouncement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.txtAnnouncement.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAnnouncement.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.txtAnnouncement.ContextMenuStrip = this.EditContextMenu;
+            this.txtAnnouncement.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAnnouncement.ForeColor = System.Drawing.Color.White;
             this.txtAnnouncement.Location = new System.Drawing.Point(508, 86);
             this.txtAnnouncement.Margin = new System.Windows.Forms.Padding(2);
@@ -301,9 +327,10 @@
             this.txtAnnouncement.Name = "txtAnnouncement";
             this.txtAnnouncement.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtAnnouncement.Size = new System.Drawing.Size(450, 343);
-            this.txtAnnouncement.TabIndex = 13;
+            this.txtAnnouncement.TabIndex = 14;
             this.txtAnnouncement.Tag = "disable";
             this.txtAnnouncement.TextChanged += new System.EventHandler(this.TxtAnnouncement_TextChanged);
+            this.txtAnnouncement.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtAnnouncement_MouseUp);
             // 
             // btnGeneratePlay
             // 
@@ -315,7 +342,7 @@
             this.btnGeneratePlay.Margin = new System.Windows.Forms.Padding(2);
             this.btnGeneratePlay.Name = "btnGeneratePlay";
             this.btnGeneratePlay.Size = new System.Drawing.Size(147, 160);
-            this.btnGeneratePlay.TabIndex = 16;
+            this.btnGeneratePlay.TabIndex = 18;
             this.btnGeneratePlay.Text = "PLAY";
             this.btnGeneratePlay.UseVisualStyleBackColor = false;
             this.btnGeneratePlay.Click += new System.EventHandler(this.Button1_Click);
@@ -337,50 +364,51 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.datagridRegions.DefaultCellStyle = dataGridViewCellStyle1;
             this.datagridRegions.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.datagridRegions.Location = new System.Drawing.Point(9, 291);
+            this.datagridRegions.Location = new System.Drawing.Point(9, 267);
             this.datagridRegions.Margin = new System.Windows.Forms.Padding(2);
             this.datagridRegions.Name = "datagridRegions";
             this.datagridRegions.RowTemplate.Height = 24;
-            this.datagridRegions.Size = new System.Drawing.Size(475, 194);
+            this.datagridRegions.Size = new System.Drawing.Size(475, 218);
             this.datagridRegions.TabIndex = 9;
             this.datagridRegions.Tag = "disable";
+            this.datagridRegions.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.datagridRegions_CellClick);
             // 
             // btnAddRegion
             // 
             this.btnAddRegion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnAddRegion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAddRegion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddRegion.Location = new System.Drawing.Point(390, 245);
+            this.btnAddRegion.Location = new System.Drawing.Point(342, 242);
             this.btnAddRegion.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddRegion.Name = "btnAddRegion";
-            this.btnAddRegion.Size = new System.Drawing.Size(94, 35);
+            this.btnAddRegion.Size = new System.Drawing.Size(142, 23);
             this.btnAddRegion.TabIndex = 8;
             this.btnAddRegion.Tag = "disable";
             this.btnAddRegion.Text = "Add Location";
             this.btnAddRegion.UseVisualStyleBackColor = false;
             this.btnAddRegion.Click += new System.EventHandler(this.BtnAddRegion_Click);
             // 
-            // label8
+            // lblAddedLocations
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label8.Location = new System.Drawing.Point(6, 274);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(98, 15);
-            this.label8.TabIndex = 100;
-            this.label8.Text = "Event Location(s)";
+            this.lblAddedLocations.AutoSize = true;
+            this.lblAddedLocations.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblAddedLocations.Location = new System.Drawing.Point(6, 250);
+            this.lblAddedLocations.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAddedLocations.Name = "lblAddedLocations";
+            this.lblAddedLocations.Size = new System.Drawing.Size(98, 15);
+            this.lblAddedLocations.TabIndex = 100;
+            this.lblAddedLocations.Text = "Event Location(s)";
             // 
-            // label9
+            // lblAnnouncement
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label9.Location = new System.Drawing.Point(506, 69);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(114, 15);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "Announcement Text";
+            this.lblAnnouncement.AutoSize = true;
+            this.lblAnnouncement.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblAnnouncement.Location = new System.Drawing.Point(506, 69);
+            this.lblAnnouncement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAnnouncement.Name = "lblAnnouncement";
+            this.lblAnnouncement.Size = new System.Drawing.Size(114, 15);
+            this.lblAnnouncement.TabIndex = 22;
+            this.lblAnnouncement.Text = "Announcement Text";
             // 
             // comboLengthHour
             // 
@@ -412,16 +440,16 @@
             this.comboLengthMinutes.TabIndex = 5;
             this.comboLengthMinutes.Tag = "disable";
             // 
-            // label10
+            // lblValidMinutes
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label10.Location = new System.Drawing.Point(393, 132);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(104, 15);
-            this.label10.TabIndex = 100;
-            this.label10.Text = "Valid for (minutes)";
+            this.lblValidMinutes.AutoSize = true;
+            this.lblValidMinutes.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblValidMinutes.Location = new System.Drawing.Point(393, 132);
+            this.lblValidMinutes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblValidMinutes.Name = "lblValidMinutes";
+            this.lblValidMinutes.Size = new System.Drawing.Size(104, 15);
+            this.lblValidMinutes.TabIndex = 100;
+            this.lblValidMinutes.Text = "Valid for (minutes)";
             // 
             // txtOutputFile
             // 
@@ -434,45 +462,45 @@
             this.txtOutputFile.Margin = new System.Windows.Forms.Padding(2);
             this.txtOutputFile.Name = "txtOutputFile";
             this.txtOutputFile.Size = new System.Drawing.Size(201, 29);
-            this.txtOutputFile.TabIndex = 19;
+            this.txtOutputFile.TabIndex = 22;
             this.txtOutputFile.Tag = "disable";
             this.txtOutputFile.Text = "output";
             // 
-            // label11
+            // lblFileName
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label11.Location = new System.Drawing.Point(918, 504);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(191, 15);
-            this.label11.TabIndex = 100;
-            this.label11.Text = "Output File Name (exclude file ext)";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFileName.AutoSize = true;
+            this.lblFileName.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblFileName.Location = new System.Drawing.Point(918, 504);
+            this.lblFileName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(191, 15);
+            this.lblFileName.TabIndex = 100;
+            this.lblFileName.Text = "Output File Name (exclude file ext)";
+            this.lblFileName.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label12
+            // lblOutput
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(505, 431);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(333, 17);
-            this.label12.TabIndex = 100;
-            this.label12.Text = "Audio files will be outputed in the program directory at:";
+            this.lblOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblOutput.AutoSize = true;
+            this.lblOutput.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOutput.Location = new System.Drawing.Point(505, 486);
+            this.lblOutput.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblOutput.Name = "lblOutput";
+            this.lblOutput.Size = new System.Drawing.Size(161, 17);
+            this.lblOutput.TabIndex = 100;
+            this.lblOutput.Text = "Audio output is located in:";
             // 
             // lblOutputDirectory
             // 
             this.lblOutputDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblOutputDirectory.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblOutputDirectory.Location = new System.Drawing.Point(505, 448);
+            this.lblOutputDirectory.Location = new System.Drawing.Point(505, 503);
             this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOutputDirectory.Name = "lblOutputDirectory";
-            this.lblOutputDirectory.Size = new System.Drawing.Size(350, 49);
+            this.lblOutputDirectory.Size = new System.Drawing.Size(260, 49);
             this.lblOutputDirectory.TabIndex = 100;
-            this.lblOutputDirectory.Text = "./";
+            this.lblOutputDirectory.Text = "Unknown directory";
             // 
             // btnAbout
             // 
@@ -484,7 +512,7 @@
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(147, 36);
-            this.btnAbout.TabIndex = 14;
+            this.btnAbout.TabIndex = 16;
             this.btnAbout.Tag = "disable";
             this.btnAbout.Text = "Open Fusion Settings";
             this.btnAbout.UseVisualStyleBackColor = false;
@@ -500,7 +528,7 @@
             this.btnGenerateCustom.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerateCustom.Name = "btnGenerateCustom";
             this.btnGenerateCustom.Size = new System.Drawing.Size(147, 57);
-            this.btnGenerateCustom.TabIndex = 18;
+            this.btnGenerateCustom.TabIndex = 21;
             this.btnGenerateCustom.Tag = "disable";
             this.btnGenerateCustom.Text = "Generate EAS from Custom Data";
             this.btnGenerateCustom.UseVisualStyleBackColor = false;
@@ -516,22 +544,22 @@
             this.btnTTSSettings.Margin = new System.Windows.Forms.Padding(2);
             this.btnTTSSettings.Name = "btnTTSSettings";
             this.btnTTSSettings.Size = new System.Drawing.Size(147, 36);
-            this.btnTTSSettings.TabIndex = 15;
+            this.btnTTSSettings.TabIndex = 17;
             this.btnTTSSettings.Tag = "disable";
             this.btnTTSSettings.Text = "Open TTS Settings";
             this.btnTTSSettings.UseVisualStyleBackColor = false;
             this.btnTTSSettings.Click += new System.EventHandler(this.BtnTTSSettings_Click);
             // 
-            // label13
+            // lblGeneratedHeader
             // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label13.Location = new System.Drawing.Point(6, 506);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(201, 15);
-            this.label13.TabIndex = 100;
-            this.label13.Text = "Generated EAS Message Header Data";
+            this.lblGeneratedHeader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblGeneratedHeader.AutoSize = true;
+            this.lblGeneratedHeader.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblGeneratedHeader.Location = new System.Drawing.Point(6, 506);
+            this.lblGeneratedHeader.Name = "lblGeneratedHeader";
+            this.lblGeneratedHeader.Size = new System.Drawing.Size(178, 15);
+            this.lblGeneratedHeader.TabIndex = 100;
+            this.lblGeneratedHeader.Text = "Generated Message Header Data";
             // 
             // txtGeneratedData
             // 
@@ -543,7 +571,7 @@
             this.txtGeneratedData.Location = new System.Drawing.Point(10, 524);
             this.txtGeneratedData.Name = "txtGeneratedData";
             this.txtGeneratedData.ReadOnly = true;
-            this.txtGeneratedData.Size = new System.Drawing.Size(476, 22);
+            this.txtGeneratedData.Size = new System.Drawing.Size(449, 22);
             this.txtGeneratedData.TabIndex = 10;
             this.txtGeneratedData.TextChanged += new System.EventHandler(this.TxtGeneratedData_TextChanged);
             // 
@@ -554,27 +582,12 @@
             this.chkBurstHeaders.Location = new System.Drawing.Point(723, 13);
             this.chkBurstHeaders.Margin = new System.Windows.Forms.Padding(2);
             this.chkBurstHeaders.Name = "chkBurstHeaders";
-            this.chkBurstHeaders.Size = new System.Drawing.Size(222, 25);
-            this.chkBurstHeaders.TabIndex = 101;
+            this.chkBurstHeaders.Size = new System.Drawing.Size(118, 25);
+            this.chkBurstHeaders.TabIndex = 13;
             this.chkBurstHeaders.Tag = "disable";
-            this.chkBurstHeaders.Text = "Use SASMEX (Experimental)";
+            this.chkBurstHeaders.Text = "Use SASMEX";
             this.chkBurstHeaders.UseVisualStyleBackColor = true;
             this.chkBurstHeaders.CheckedChanged += new System.EventHandler(this.chkBurstHeaders_CheckedChanged);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.Color.Gray;
-            this.checkBox1.Location = new System.Drawing.Point(723, 41);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(110, 25);
-            this.checkBox1.TabIndex = 102;
-            this.checkBox1.Tag = "disable";
-            this.checkBox1.Text = "Six Headers";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // btnGenerateTTSOnly
             // 
@@ -586,7 +599,7 @@
             this.btnGenerateTTSOnly.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerateTTSOnly.Name = "btnGenerateTTSOnly";
             this.btnGenerateTTSOnly.Size = new System.Drawing.Size(147, 57);
-            this.btnGenerateTTSOnly.TabIndex = 103;
+            this.btnGenerateTTSOnly.TabIndex = 19;
             this.btnGenerateTTSOnly.Tag = "disable";
             this.btnGenerateTTSOnly.Text = "Play w/o headers\r\n& attention tones";
             this.btnGenerateTTSOnly.UseMnemonic = false;
@@ -598,17 +611,226 @@
             this.PlayCountdown.Interval = 5;
             this.PlayCountdown.Tick += new System.EventHandler(this.PlayCountdown_Tick);
             // 
-            // label14
+            // lblVersion
             // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(1058, 483);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(51, 21);
-            this.label14.TabIndex = 104;
-            this.label14.Text = "v0.1.1";
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.Magenta;
+            this.lblVersion.Location = new System.Drawing.Point(921, 453);
+            this.lblVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(188, 44);
+            this.lblVersion.TabIndex = 104;
+            this.lblVersion.Text = "v0.0.0\r\nBunnyTub on Discord";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.lblVersion.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // lblVoice
+            // 
+            this.lblVoice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblVoice.AutoSize = true;
+            this.lblVoice.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblVoice.Location = new System.Drawing.Point(506, 435);
+            this.lblVoice.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblVoice.Name = "lblVoice";
+            this.lblVoice.Size = new System.Drawing.Size(248, 15);
+            this.lblVoice.TabIndex = 107;
+            this.lblVoice.Text = "Announcement Voice (will be added in v0.1.4)";
+            // 
+            // combo
+            // 
+            this.combo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.combo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.combo.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.combo.ForeColor = System.Drawing.Color.White;
+            this.combo.FormattingEnabled = true;
+            this.combo.Location = new System.Drawing.Point(509, 452);
+            this.combo.Margin = new System.Windows.Forms.Padding(2);
+            this.combo.Name = "combo";
+            this.combo.Size = new System.Drawing.Size(234, 29);
+            this.combo.TabIndex = 15;
+            this.combo.Tag = "disable";
+            // 
+            // LocationContextMenu
+            // 
+            this.LocationContextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.LocationContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteLocationToolStripMenuItem});
+            this.LocationContextMenu.Name = "LocationContextMenu";
+            this.LocationContextMenu.ShowImageMargin = false;
+            this.LocationContextMenu.Size = new System.Drawing.Size(132, 26);
+            this.LocationContextMenu.Text = "Location";
+            // 
+            // deleteLocationToolStripMenuItem
+            // 
+            this.deleteLocationToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.deleteLocationToolStripMenuItem.Name = "deleteLocationToolStripMenuItem";
+            this.deleteLocationToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.deleteLocationToolStripMenuItem.Text = "Delete Location";
+            this.deleteLocationToolStripMenuItem.ToolTipText = "Deletes the location.";
+            this.deleteLocationToolStripMenuItem.Click += new System.EventHandler(this.deleteLocationToolStripMenuItem_Click);
+            // 
+            // btnCopyHeader
+            // 
+            this.btnCopyHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.btnCopyHeader.BackgroundImage = global::EASEncoder_UI.Properties.Resources.placeholder;
+            this.btnCopyHeader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCopyHeader.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCopyHeader.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCopyHeader.Location = new System.Drawing.Point(464, 524);
+            this.btnCopyHeader.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCopyHeader.Name = "btnCopyHeader";
+            this.btnCopyHeader.Size = new System.Drawing.Size(22, 22);
+            this.btnCopyHeader.TabIndex = 108;
+            this.btnCopyHeader.Tag = "disable";
+            this.btnCopyHeader.UseVisualStyleBackColor = false;
+            this.btnCopyHeader.Click += new System.EventHandler(this.btnCopyHeader_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(723, 41);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(91, 31);
+            this.checkBox1.TabIndex = 109;
+            this.checkBox1.Tag = "disable";
+            this.checkBox1.Text = "Stress Test";
+            this.checkBox1.UseVisualStyleBackColor = false;
+            this.checkBox1.Visible = false;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // EditContextMenu
+            // 
+            this.EditContextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.EditContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolUndoRedo,
+            this.toolStripSeparator1,
+            this.toolCut,
+            this.toolCopy,
+            this.toolPaste,
+            this.toolDelete,
+            this.toolStripSeparator2,
+            this.toolSelectAll,
+            this.toolStripSeparator3,
+            this.toolStripMenuItem8});
+            this.EditContextMenu.Name = "LocationContextMenu";
+            this.EditContextMenu.ShowImageMargin = false;
+            this.EditContextMenu.Size = new System.Drawing.Size(156, 198);
+            this.EditContextMenu.Text = "Edit";
+            this.EditContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.EditContextMenu_Opening);
+            // 
+            // toolUndoRedo
+            // 
+            this.toolUndoRedo.ForeColor = System.Drawing.Color.White;
+            this.toolUndoRedo.Name = "toolUndoRedo";
+            this.toolUndoRedo.Size = new System.Drawing.Size(155, 22);
+            this.toolUndoRedo.Text = "&Undo";
+            this.toolUndoRedo.ToolTipText = "Rewinds the last action.";
+            this.toolUndoRedo.Click += new System.EventHandler(this.toolUndoRedo_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
+            // 
+            // toolCut
+            // 
+            this.toolCut.ForeColor = System.Drawing.Color.White;
+            this.toolCut.Name = "toolCut";
+            this.toolCut.Size = new System.Drawing.Size(155, 22);
+            this.toolCut.Text = "Cu&t";
+            this.toolCut.ToolTipText = "Cuts the text and copies it to the clipboard.";
+            this.toolCut.Click += new System.EventHandler(this.toolCut_Click);
+            // 
+            // toolCopy
+            // 
+            this.toolCopy.ForeColor = System.Drawing.Color.White;
+            this.toolCopy.Name = "toolCopy";
+            this.toolCopy.Size = new System.Drawing.Size(155, 22);
+            this.toolCopy.Text = "&Copy";
+            this.toolCopy.ToolTipText = "Copies the text to the clipboard.";
+            this.toolCopy.Click += new System.EventHandler(this.toolCopy_Click);
+            // 
+            // toolPaste
+            // 
+            this.toolPaste.ForeColor = System.Drawing.Color.White;
+            this.toolPaste.Name = "toolPaste";
+            this.toolPaste.Size = new System.Drawing.Size(155, 22);
+            this.toolPaste.Text = "&Paste";
+            this.toolPaste.ToolTipText = "Pastes text from the clipboard.";
+            this.toolPaste.Click += new System.EventHandler(this.toolPaste_Click);
+            // 
+            // toolDelete
+            // 
+            this.toolDelete.ForeColor = System.Drawing.Color.White;
+            this.toolDelete.Name = "toolDelete";
+            this.toolDelete.Size = new System.Drawing.Size(155, 22);
+            this.toolDelete.Text = "&Delete";
+            this.toolDelete.ToolTipText = "Deletes the selected text.";
+            this.toolDelete.Click += new System.EventHandler(this.toolDelete_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(152, 6);
+            // 
+            // toolSelectAll
+            // 
+            this.toolSelectAll.ForeColor = System.Drawing.Color.White;
+            this.toolSelectAll.Name = "toolSelectAll";
+            this.toolSelectAll.Size = new System.Drawing.Size(155, 22);
+            this.toolSelectAll.Text = "Select &All";
+            this.toolSelectAll.ToolTipText = "Selects all the text.";
+            this.toolSelectAll.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(152, 6);
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem12,
+            this.toolStripMenuItem11,
+            this.toolStripMenuItem10});
+            this.toolStripMenuItem8.Enabled = false;
+            this.toolStripMenuItem8.ForeColor = System.Drawing.Color.White;
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(155, 22);
+            this.toolStripMenuItem8.Text = "Templates";
+            this.toolStripMenuItem8.ToolTipText = "Shows the templates.";
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.toolStripMenuItem12.ForeColor = System.Drawing.Color.White;
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(189, 22);
+            this.toolStripMenuItem12.Text = "Test Demonstration";
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.toolStripMenuItem11.ForeColor = System.Drawing.Color.White;
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(189, 22);
+            this.toolStripMenuItem11.Text = "Required Monthy Test";
+            // 
+            // toolStripMenuItem10
+            // 
+            this.toolStripMenuItem10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.toolStripMenuItem10.ForeColor = System.Drawing.Color.White;
+            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(189, 22);
+            this.toolStripMenuItem10.Text = "Required Weekly Test";
             // 
             // MainForm
             // 
@@ -616,24 +838,26 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1120, 561);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.btnGenerateTTSOnly);
             this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.btnCopyHeader);
+            this.Controls.Add(this.lblVoice);
+            this.Controls.Add(this.combo);
+            this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.btnGenerateTTSOnly);
             this.Controls.Add(this.chkBurstHeaders);
             this.Controls.Add(this.txtGeneratedData);
-            this.Controls.Add(this.label13);
+            this.Controls.Add(this.lblGeneratedHeader);
             this.Controls.Add(this.btnTTSSettings);
             this.Controls.Add(this.btnGenerateCustom);
             this.Controls.Add(this.btnAbout);
-            this.Controls.Add(this.lblOutputDirectory);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label11);
+            this.Controls.Add(this.lblOutput);
+            this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.txtOutputFile);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.lblValidMinutes);
             this.Controls.Add(this.comboLengthMinutes);
             this.Controls.Add(this.comboLengthHour);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lblAnnouncement);
+            this.Controls.Add(this.lblAddedLocations);
             this.Controls.Add(this.btnAddRegion);
             this.Controls.Add(this.datagridRegions);
             this.Controls.Add(this.btnGeneratePlay);
@@ -643,17 +867,18 @@
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtSender);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblValidHours);
+            this.Controls.Add(this.lblEventBegin);
             this.Controls.Add(this.dateStart);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblOriginator);
             this.Controls.Add(this.comboOriginator);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblCode);
             this.Controls.Add(this.comboCode);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblCounty);
             this.Controls.Add(this.comboCounty);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblState);
             this.Controls.Add(this.comboState);
+            this.Controls.Add(this.lblOutputDirectory);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -666,6 +891,8 @@
             this.Text = "EASEncoder Fusion";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.datagridRegions)).EndInit();
+            this.LocationContextMenu.ResumeLayout(false);
+            this.EditContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -673,16 +900,16 @@
 
         #endregion
         private System.Windows.Forms.ComboBox comboState;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.Label lblCounty;
         private System.Windows.Forms.ComboBox comboCounty;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCode;
         private System.Windows.Forms.ComboBox comboCode;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblOriginator;
         private System.Windows.Forms.ComboBox comboOriginator;
         private System.Windows.Forms.DateTimePicker dateStart;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblEventBegin;
+        private System.Windows.Forms.Label lblValidHours;
         private System.Windows.Forms.TextBox txtSender;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnGenerate;
@@ -692,25 +919,44 @@
         private System.Windows.Forms.Button btnGeneratePlay;
         private System.Windows.Forms.DataGridView datagridRegions;
         private System.Windows.Forms.Button btnAddRegion;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblAddedLocations;
+        private System.Windows.Forms.Label lblAnnouncement;
         private System.Windows.Forms.ComboBox comboLengthHour;
         private System.Windows.Forms.ComboBox comboLengthMinutes;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblValidMinutes;
         private System.Windows.Forms.TextBox txtOutputFile;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblFileName;
+        private System.Windows.Forms.Label lblOutput;
         private System.Windows.Forms.Label lblOutputDirectory;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.Button btnGenerateCustom;
         private System.Windows.Forms.Button btnTTSSettings;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblGeneratedHeader;
         private System.Windows.Forms.TextBox txtGeneratedData;
         private System.Windows.Forms.CheckBox chkBurstHeaders;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button btnGenerateTTSOnly;
         private System.Windows.Forms.Timer PlayCountdown;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblVoice;
+        private System.Windows.Forms.ComboBox combo;
+        private System.Windows.Forms.ContextMenuStrip LocationContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem deleteLocationToolStripMenuItem;
+        private System.Windows.Forms.Button btnCopyHeader;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ContextMenuStrip EditContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem toolDelete;
+        private System.Windows.Forms.ToolStripMenuItem toolUndoRedo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolCut;
+        private System.Windows.Forms.ToolStripMenuItem toolCopy;
+        private System.Windows.Forms.ToolStripMenuItem toolPaste;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem toolSelectAll;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
     }
 }
 

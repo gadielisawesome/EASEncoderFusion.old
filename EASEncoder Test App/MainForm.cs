@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Media;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
@@ -36,17 +37,24 @@ namespace EASEncoder_UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Screen.PrimaryScreen.Bounds.Width < 1280 || Screen.PrimaryScreen.Bounds.Height < 720)
+            this.SuspendLayout();
+            if (Settings.Default.LowRes)
             {
                 this.MaximizeBox = false;
+                //this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Maximized;
+                //this.TopMost = false;
+                //this.BringToFront();
+                //MainFormLowRes mainFormLowRes = new MainFormLowRes();
+                //mainFormLowRes.Show();
             }
+            lblVersion.Text = this.Tag.ToString() + "\nBunnyTub on Discord";
             SpeechSynthesizer synthesizer = new SpeechSynthesizer();
             lblOutputDirectory.Text = Environment.CurrentDirectory;
             var bindingList = new BindingList<SAMERegion>(Regions);
             var source = new BindingSource(bindingList, null);
             datagridRegions.DataSource = source;
-            
+
             dateStart.ShowUpDown = true;
             dateStart.CustomFormat = "MM/dd/yyyy hh:mm tt";
             dateStart.Format = DateTimePickerFormat.Custom;
@@ -67,6 +75,7 @@ namespace EASEncoder_UI
 
             comboOriginator.DrawItem += ComboBox1_DrawItem;
             comboOriginator.MeasureItem += ComboBox1_MeasureItem;
+            this.ResumeLayout();
         }
 
         private void ComboState_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,9 +96,9 @@ namespace EASEncoder_UI
                 {
                     try
                     {
-                        SoundPlayer player = new SoundPlayer("https://github.com/gadielisawesome/files/raw/master/boom.wav");
-                        player.Load();
-                        player.Play();
+                        //SoundPlayer player = new SoundPlayer("https://github.com/gadielisawesome/files/raw/master/boom.wav");
+                        //player.Load();
+                        //player.Play();
                         //if (player != null && player.IsLoadCompleted)
                         //    player.Stop();
                     }
@@ -178,6 +187,88 @@ namespace EASEncoder_UI
             txtGeneratedData.Text = generatedData2;
         }
 
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (player != null)
+            {
+                btnGeneratePlay.Enabled = false;
+                DialogResult response = MessageBox.Show("Are you sure you want to end your message early?\n\nPress ABORT to abruptly stop the message.\nPress RETRY to stop the message with EOM.\nPress IGNORE to go back.", "EASEncoder Fusion", MessageBoxButtons.AbortRetryIgnore);
+                if (response == DialogResult.Abort)
+                {
+                    player.Stop();
+                    player = null;
+                    EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
+                    btnGeneratePlay.Enabled = true;
+                    return;
+                }
+                else if (response == DialogResult.Retry)
+                {
+                    player.Stop();
+                    player = null;
+                    new SoundPlayer(Resources.EOM).PlaySync();
+                    EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
+                    btnGeneratePlay.Enabled = true;
+                    return;
+                }
+                else if (response == DialogResult.Ignore)
+                {
+                    btnGeneratePlay.Enabled = true;
+                    return;
+                }
+                btnGeneratePlay.Enabled = true;
+                return;
+            }
+
+            if (!ValidateInput())
+            {
+                return;
+            }
+
+            _start = dateStart.Value.ToUniversalTime();
+            _senderId = txtSender.Text;
+            _length = ZeroPad(comboLengthHour.Text, 2) + ZeroPad(comboLengthMinutes.Text, 2);
+
+            var newMessage = new EASMessage(_selectedOriginator.Id, _selectedAlertCode.Id,
+                Regions, _length, _start, _senderId);
+
+
+            var messageStream = EASEncoderFusion.EASEncoderFusion.GetMemoryStreamFromNewMessage(newMessage, chkEbsTones.Checked,
+                chkNwsTone.Checked, FormatAnnouncement(txtAnnouncement.Text), chkBurstHeaders.Checked);
+
+            //btnGeneratePlay.BackColor = Color.Red;
+            DisableElementsWithTag.DisableControlsWithTag(this.Controls, "disable");
+            btnGeneratePlay.Text = "STOP";
+
+            WaveStream mainOutputStream = new RawSourceWaveStream(messageStream, new WaveFormat());
+            var volumeStream = new WaveChannel32(mainOutputStream)
+            {
+                PadWithZeroes = false
+            };
+
+            player = new WaveOutEvent();
+            player.PlaybackStopped += (o, args) =>
+            {
+                this.SuspendLayout();
+                try { player = null; player?.Dispose(); } catch (Exception) { }
+                EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
+                this.ResumeLayout();
+                btnGeneratePlay.Text = "PLAY";
+                if (Settings.Default.QuitOnFinish) this.Close();
+            };
+
+            player.Init(volumeStream);
+
+            if (Settings.Default.UseCountdown)
+            {
+                btnGeneratePlay.Enabled = false;
+                PlayCountdown.Start();
+                return;
+            }
+
+            //new DisplayForm().Show();
+            player.Play();
+        }
+
         internal string ZeroPad(string String, int Length)
         {
             if (string.IsNullOrEmpty(String))
@@ -254,91 +345,11 @@ namespace EASEncoder_UI
 
             if (Regions.Count < 1)
             {
-                MessageBox.Show("You must add at least 1 location (state/county) to the locations list.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You must select and add at least 1 location (state/county).", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             return true;
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            if (player != null)
-            {
-                btnGeneratePlay.Enabled = false;
-                DialogResult response = MessageBox.Show("Are you sure you want to end your message early?\n\nPress ABORT to abruptly stop the message.\nPress RETRY to stop the message with EOM.\nPress IGNORE to go back.", "EASEncoder Fusion", MessageBoxButtons.AbortRetryIgnore);
-                if (response == DialogResult.Abort)
-                {
-                    player.Stop();
-                    player = null;
-                    EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
-                    btnGeneratePlay.Enabled = true;
-                    return;
-                }
-                else if (response == DialogResult.Retry)
-                {
-                    player.Stop();
-                    player = null;
-                    new SoundPlayer(Resources.EOM).PlaySync();
-                    EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
-                    btnGeneratePlay.Enabled = true;
-                    return;
-                }
-                else if (response == DialogResult.Ignore)
-                {
-                    btnGeneratePlay.Enabled = true;
-                    return;
-                }
-                btnGeneratePlay.Enabled = true;
-                return;
-            }
-
-            if (!ValidateInput())
-            {
-                return;
-            }
-
-            _start = dateStart.Value.ToUniversalTime();
-            _senderId = txtSender.Text;
-            _length = ZeroPad(comboLengthHour.Text, 2) + ZeroPad(comboLengthMinutes.Text, 2);
-
-            var newMessage = new EASMessage(_selectedOriginator.Id, _selectedAlertCode.Id,
-                Regions, _length, _start, _senderId);
-
-
-            var messageStream = EASEncoderFusion.EASEncoderFusion.GetMemoryStreamFromNewMessage(newMessage, chkEbsTones.Checked,
-                chkNwsTone.Checked, FormatAnnouncement(txtAnnouncement.Text), chkBurstHeaders.Checked);
-
-            //btnGeneratePlay.BackColor = Color.Red;
-            DisableElementsWithTag.DisableControlsWithTag(this.Controls, "disable");
-            btnGeneratePlay.Text = "STOP";
-
-            WaveStream mainOutputStream = new RawSourceWaveStream(messageStream, new WaveFormat());
-            var volumeStream = new WaveChannel32(mainOutputStream)
-            {
-                PadWithZeroes = false
-            };
-
-            player = new WaveOutEvent();
-            player.PlaybackStopped += (o, args) =>
-            {
-                this.SuspendLayout();
-                try { player = null; player?.Dispose();  } catch (Exception) { }
-                EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
-                this.ResumeLayout();
-                btnGeneratePlay.Text = "PLAY";
-            };
-
-            player.Init(volumeStream);
-
-            if (Settings.Default.UseCountdown)
-            {
-                btnGeneratePlay.Enabled = false;
-                PlayCountdown.Start();
-                return;
-            }
-
-            player.Play();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -370,7 +381,9 @@ namespace EASEncoder_UI
         private void Button1_Click_1(object sender, EventArgs e)
         {
             AboutForm aboutDialog = new AboutForm();
+            this.Hide();
             aboutDialog.ShowDialog();
+            this.Show();
             //int frequency1 = 540; // Frequency of the first tone in Hz
             //int frequency2 = 420; // Frequency of the second tone in Hz
 
@@ -392,20 +405,22 @@ namespace EASEncoder_UI
 
         private void Button1_Click_2(object sender, EventArgs e)
         {
-                CustomGenForm customEncode = new CustomGenForm();
-                if (customEncode.ShowDialog(this) == DialogResult.OK)
-                {
-                    EASEncoderFusion.EASEncoderFusion.CreateNewMessageFromRawData(message: customEncode.txtCustomData.Text, ebsTone: customEncode.checkBoxEBS.Checked, nwsTone: customEncode.checkBoxNWR.Checked, announcement: FormatAnnouncement(customEncode.txtAnnouncement.Text));
-                }
-                else
-                {
-                }
-                customEncode.Dispose();
+            CustomGenForm customEncode = new CustomGenForm();
+            this.Hide();
+            if (customEncode.ShowDialog(this) == DialogResult.OK)
+            {
+                EASEncoderFusion.EASEncoderFusion.CreateNewMessageFromRawData(message: customEncode.txtCustomData.Text, ebsTone: customEncode.checkBoxEBS.Checked, nwsTone: customEncode.checkBoxNWR.Checked, announcement: FormatAnnouncement(customEncode.txtAnnouncement.Text));
+            }
+            else
+            {
+            }
+            customEncode.Dispose();
+            this.Show();
         }
 
         private void BtnTTSSettings_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Although you can change the default speech instrument, it may not reflect or change here.\nSome voices are incompatible.");
+            MessageBox.Show("SAPI voices are currently incompatible. This will be fixed in the next update.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //int b = 0;
             //_ = 1 / b;
             Process.Start("C:\\WINDOWS\\SYSWOW64\\SPEECH\\SPEECHUX\\SAPI.CPL");
@@ -423,20 +438,6 @@ namespace EASEncoder_UI
         }
 
         private void TxtGeneratedData_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-            {
-                checkBox1.Checked = false;
-                throw new NotImplementedException();
-            }
-        }
-
-        private void timer_Tick_1(object sender, EventArgs e)
         {
 
         }
@@ -478,7 +479,7 @@ namespace EASEncoder_UI
 
         private void chkBurstHeaders_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkBurstHeaders.Checked) MessageBox.Show("This feature is experimental and should not be used in production environments.", "EASEncoder Fusion", MessageBoxButtons.OK);
+            if (chkBurstHeaders.Checked) MessageBox.Show("This feature is experimental.", "EASEncoder Fusion", MessageBoxButtons.OK);
         }
 
         int i = 15;
@@ -494,10 +495,223 @@ namespace EASEncoder_UI
                 i = 15;
                 btnGeneratePlay.Enabled = true;
                 btnGeneratePlay.Text = "STOP";
+                //new DisplayForm().Show();
                 player.Play();
             }
         }
+
+        private void txtSender_TextChanged(object sender, EventArgs e)
+        {
+            txtSender.Text.Trim();
+        }
+
+        int GridIndexRow = -1;
+        //int GridIndexColumn = -1;
+
+        private void datagridRegions_CellClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    GridIndexRow = e.RowIndex;
+                    //GridIndexColumn = e.ColumnIndex;
+                    LocationContextMenu.Show(MousePosition.X, MousePosition.Y);
+                }
+            }
+        }
+
+        private void deleteLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+            try { datagridRegions.Rows.RemoveAt(GridIndexRow); } catch (Exception) { }
+            this.ResumeLayout();
+        }
+
+        private void btnAddAllRegions_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you want to forcefully redraw all elements?", "EASEncoder Fusion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) this.Invalidate();
+        }
+
+        private void btnCopyHeader_Click(object sender, EventArgs e)
+        {
+            txtGeneratedData.SelectAll();
+            txtGeneratedData.Copy();
+            string temp = txtGeneratedData.Text;
+            txtGeneratedData.Clear();
+            txtGeneratedData.Text = temp;
+        }
+
+        private readonly Random rnd = new Random(DateTime.Now.Millisecond);
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                if (MessageBox.Show("This will start testing now. It may take a few minutes to fully complete due to the hardcore nature of this test. Your computer may become unresponsive for a few minutes while processing the headers.\n\nDo you want to continue?", "EASEncoder Fusion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    DisableElementsWithTag.DisableControlsWithTag(this.Controls, "disable");
+                    comboOriginator.SelectedIndex = rnd.Next(1, 3);
+                    txtSender.Text = "TESTDEMO";
+                    comboCode.SelectedIndex = rnd.Next(1, 20);
+                    comboLengthHour.SelectedIndex = rnd.Next(1, 99);
+                    comboLengthMinutes.SelectedIndex = rnd.Next(1, 60);
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        try
+                        {
+                            comboState.SelectedIndex = rnd.Next(1, 40);
+                            comboCounty.SelectedIndex = rnd.Next(1, 5);
+                            Regions.Add(new SAMERegion(_selectedState, _selectedCounty));
+                        }
+                        catch (Exception) { }
+                    }
+
+                    try
+                    {
+                        datagridRegions.DataSource = new BindingSource(new BindingList<SAMERegion>(Regions), null);
+                    }
+                    catch (Exception) { }
+
+                    if (rnd.Next(1, 2) == 1) chkEbsTones.Checked = true;
+                    else chkEbsTones.Checked = false;
+
+                    if (rnd.Next(1, 2) == 1) chkNwsTone.Checked = true;
+                    else chkNwsTone.Checked = false;
+
+                    chkBurstHeaders.Checked = false;
+
+                    txtAnnouncement.Text = "Rainbow meadow dances, tranquil breeze painting whimsical symphony. Serendipitous whispers caress ethereal whispers, blooming moonbeams caressing starlit whispers. Enchanted twilight waltzes, mystic lullabies enchant celestial fireflies. Velvet petals float, embracing whispers of serenity, twilight's embrace cascading gently. Ethereal echoes shimmer, whispering dreamsong amidst enchanted meadows. Luminous whispers guide ethereal wanderers, weaving ephemeral tapestries of infinite wonder. Spiraling stardust illuminates nocturnal whispers, entwining galaxies with ethereal lullabies. Midnight symphony dances, cosmic whispers enthralling the universe. Celestial rivers flow, whispering secrets in celestial languages. Enigmatic whispers echo through enchanted realms, beckoning ethereal voyagers.";
+
+                    _start = dateStart.Value.ToUniversalTime();
+                    _senderId = txtSender.Text;
+                    _length = ZeroPad(comboLengthHour.Text, 2) + ZeroPad(comboLengthMinutes.Text, 2);
+
+                    var newMessage = new EASMessage(_selectedOriginator.Id, _selectedAlertCode.Id,
+                        Regions, _length, _start, _senderId);
+
+
+                    var messageStream = EASEncoderFusion.EASEncoderFusion.GetMemoryStreamFromNewMessage(newMessage, chkEbsTones.Checked,
+                        chkNwsTone.Checked, FormatAnnouncement(txtAnnouncement.Text), chkBurstHeaders.Checked);
+
+                    DisableElementsWithTag.DisableControlsWithTag(this.Controls, "disable");
+                    btnGeneratePlay.Text = "STOP";
+
+                    WaveStream mainOutputStream = new RawSourceWaveStream(messageStream, new WaveFormat());
+                    var volumeStream = new WaveChannel32(mainOutputStream)
+                    {
+                        PadWithZeroes = false
+                    };
+
+                    player = new WaveOutEvent();
+                    player.PlaybackStopped += (o, args) =>
+                    {
+                        this.SuspendLayout();
+                        try { player = null; player?.Dispose(); } catch (Exception) { }
+                        EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
+                        this.ResumeLayout();
+                        btnGeneratePlay.Text = "PLAY";
+                        this.Hide();
+                        MessageBox.Show("Processed 500 areas.");
+                        this.Close();
+                        checkBox1.Checked = false;
+                    };
+
+                    player.Init(volumeStream);
+
+                    player.Play();
+                }
+                else checkBox1.Checked = false;
+            }
+            else
+            {
+                EnableElementsWithTag.EnableControlsWithTag(this.Controls, "disable");
+            }
+        }
+
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtAnnouncement_MouseUp(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void EditContextMenu_Opening(object sender, CancelEventArgs e)
+        {
+            toolCut.Enabled = false;
+            toolCopy.Enabled = false;
+            toolDelete.Enabled = false;
+            toolPaste.Enabled = false;
+            toolUndoRedo.Enabled = false;
+
+            if (txtAnnouncement.SelectedText != "")
+            {
+                toolCut.Enabled = true;
+                toolCopy.Enabled = true;
+                toolDelete.Enabled = true;
+            }
+            if (Clipboard.ContainsText())
+            {
+                toolPaste.Enabled = true;
+            }
+            if (txtAnnouncement.CanUndo)
+            {
+                toolUndoRedo.Enabled = true;
+            }
+        }
+
+        private void toolUndoRedo_Click(object sender, EventArgs e)
+        {
+            if (txtAnnouncement.CanUndo) txtAnnouncement.Undo();
+        }
+
+        private void toolCut_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtAnnouncement.SelectedText))
+            {
+                Clipboard.SetText(txtAnnouncement.SelectedText);
+                txtAnnouncement.Text = txtAnnouncement.Text.Remove(txtAnnouncement.SelectionStart, txtAnnouncement.SelectionLength);
+            }
+        }
+
+
+        private void toolCopy_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtAnnouncement.SelectedText))
+            {
+                Clipboard.SetText(txtAnnouncement.SelectedText);
+            }
+        }
+
+        private void toolDelete_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtAnnouncement.SelectedText))
+            {
+                txtAnnouncement.Text = txtAnnouncement.Text.Remove(txtAnnouncement.SelectionStart, txtAnnouncement.SelectionLength);
+            }
+        }
+
+        private void toolPaste_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsText())
+            {
+                string clipboardText = Clipboard.GetText();
+                int caretPosition = txtAnnouncement.SelectionStart;
+                txtAnnouncement.Text = txtAnnouncement.Text.Insert(caretPosition, clipboardText);
+                txtAnnouncement.SelectionStart = caretPosition + clipboardText.Length;
+            }
+        }
+
     }
+
     public static class DisableElementsWithTag
     {
         public static void DisableControlsWithTag(Control.ControlCollection controls, string tag)

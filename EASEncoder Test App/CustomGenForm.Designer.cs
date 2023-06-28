@@ -81,9 +81,10 @@
             // checkBoxNWR
             // 
             this.checkBoxNWR.AutoSize = true;
-            this.checkBoxNWR.Location = new System.Drawing.Point(18, 149);
+            this.checkBoxNWR.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.checkBoxNWR.Location = new System.Drawing.Point(18, 178);
             this.checkBoxNWR.Name = "checkBoxNWR";
-            this.checkBoxNWR.Size = new System.Drawing.Size(108, 17);
+            this.checkBoxNWR.Size = new System.Drawing.Size(139, 25);
             this.checkBoxNWR.TabIndex = 1;
             this.checkBoxNWR.Text = "Use NWR Tones";
             this.checkBoxNWR.UseVisualStyleBackColor = true;
@@ -91,9 +92,10 @@
             // checkBoxEBS
             // 
             this.checkBoxEBS.AutoSize = true;
-            this.checkBoxEBS.Location = new System.Drawing.Point(18, 173);
+            this.checkBoxEBS.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.checkBoxEBS.Location = new System.Drawing.Point(18, 147);
             this.checkBoxEBS.Name = "checkBoxEBS";
-            this.checkBoxEBS.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxEBS.Size = new System.Drawing.Size(128, 25);
             this.checkBoxEBS.TabIndex = 2;
             this.checkBoxEBS.Text = "Use EBS Tones";
             this.checkBoxEBS.UseVisualStyleBackColor = true;
@@ -238,6 +240,7 @@
             this.MinimizeBox = false;
             this.Name = "CustomGenForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "EASEncoder Fusion";
             this.ResumeLayout(false);
             this.PerformLayout();
