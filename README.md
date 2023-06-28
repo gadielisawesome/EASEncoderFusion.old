@@ -1,7 +1,7 @@
 EASEncoder Fusion is based on the original EASEncoder by SotaJoe.
 
 # Incorrect usage of SAPI voices
-There has been a few people confused on how to set them up properly. Here's a tiny guide to help.
+There has been a few people confused on how to set them up properly. Here's a tiny guide to help. Although SAPI voices won't be accessible yet until v0.1.4, I thought I would just help clear up confusion, as this guide still applies to regular built-in TTS voices, and works with them.
 
 This is incorrect.
 
