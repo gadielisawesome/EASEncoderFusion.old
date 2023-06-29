@@ -84,7 +84,8 @@ This is broken down as follows:
 
 Each field of the header code is terminated by a dash character, including the station ID at the end; individual PSSCCC location numbers are also separated by dashes, with a plus (+) separating the last location from the purge time that follows it.
 
-You can use the above protocol to encode custom EAS messages in the "Generate EAS from Custom Data" feature. Example image:
+You can use the above protocol to encode custom EAS messages in the "Generate EAS from Custom Data" feature. Like this.
+
 ![Image consisting of a window with inputs and settings](https://github.com/gadielisawesome/EASEncoderFusion/assets/51249136/0b10359c-7c69-4d4b-8ff4-df360aeb3c92)
 
 
