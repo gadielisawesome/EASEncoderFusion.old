@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("EASEncoder Fusion")]
 [assembly: AssemblyDescription("EASEncoder Fusion")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("gadielisawesome")]
 [assembly: AssemblyProduct("EASEncoder Fusion")]
 [assembly: AssemblyCopyright("gadielisawesome")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("BunnyTub")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

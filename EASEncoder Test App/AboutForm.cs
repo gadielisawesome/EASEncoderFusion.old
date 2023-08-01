@@ -34,11 +34,12 @@ namespace EASEncoder_UI
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MessageBox.Show(
-                "'Output errors and warnings quietly'\n" +
-                "This will silence any errors and warnings that may occur while using the app.\n\n" +
+                "'Output errors and warnings quietly'\nThis will silence any errors and warnings that may occur while using the app.\n\n" +
                 "'Use Windows 95/98 design'\nThis can improve visual performance on older systems.\n\n" +
                 "'Wait 15 seconds before relaying message'\nThis will process the audio first, wait 15 seconds, then relay it.\n\n" +
-                "Use Legacy Fonts\nThis makes the fonts look a bit better on older versions of Windows, but may cause black boxes around labels.");
+                "Use Legacy Fonts\nThis makes the fonts look a bit better on older versions of Windows, but may cause black boxes around labels.\n\n" +
+                "Quit after message finishes\nThis closes the application after playback finishes. This doesn't apply to manual stops or if No EAS is enabled.\n\n" +
+                "Show non-compliant options\nShows non-compliant options for creating EAS messages.");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,6 +54,8 @@ namespace EASEncoder_UI
             Properties.Settings.Default.UseCountdown = checkBox3.Checked;
             Properties.Settings.Default.LegacyFont = checkBox4.Checked;
             Properties.Settings.Default.QuitOnFinish = checkBox5.Checked;
+            Properties.Settings.Default.ShowNonCompliant = checkBox6.Checked;
+            Properties.Settings.Default.Swipe = txtCard.Text;
             Properties.Settings.Default.Save();
             MessageBox.Show("Some changes may not take effect until you restart the program.", "EASEncoder Fusion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
@@ -73,6 +76,7 @@ namespace EASEncoder_UI
             checkBox3.Checked = Properties.Settings.Default.UseCountdown;
             checkBox4.Checked = Properties.Settings.Default.LegacyFont;
             checkBox5.Checked = Properties.Settings.Default.QuitOnFinish;
+            checkBox6.Checked = Properties.Settings.Default.ShowNonCompliant;
             if (!Properties.Settings.Default.LowRes)
             {
                 lblLowRes.Hide();

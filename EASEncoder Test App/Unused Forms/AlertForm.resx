@@ -117,27 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="EditContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>309, 17</value>
-  </metadata>
-  <metadata name="PlayCountdown.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="LocationContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>154, 17</value>
-  </metadata>
-  <metadata name="DownTown.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>455, 17</value>
-  </metadata>
-  <metadata name="UpTown.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>568, 17</value>
-  </metadata>
-  <metadata name="Randomization.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>665, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>69</value>
-  </metadata>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>The National Weather Service in (The Areas local NWS Office) has issued a Severe Thunderstorm Warning For...
+
+* … (Counties and the state, for example "Ocean County In Southern New Jersey")
+
+* Until (Time it expires).
+
+* At (time), a severe thunderstorm(s)/showers producing damaging winds/was/were located/located along a line extending from (exact location), moving (direction and speed).
+
+(If Destructive: This is a DESTRUCTIVE STORM for (counties/areas affected) or These are DESTRUCTIVE STORMS for (counties/areas affected).
+
+HAZARD...(If Base: 60 mph wind gusts and/or quarter - ping pong ball size hail.) (If Considerable: 70 mph wind gusts and/or golf ball - tennis ball size hail.) (If Destructive: 80 (or greater) mph wind gusts and/or baseball size hail.)
+
+SOURCE...(list source).
+
+IMPACT...(If Base: Hail damage to vehicles is expected. Expect wind damage to roofs, siding, trees, and/or power lines.) (If Considerable: [People and animals outdoors will be injured.] Hail damage to vehicles is expected. Expect wind damage to roofs, siding, trees, and/or power lines. Expect considerable tree damage.) (If Destructive: People and animals outdoors will be severely injured. Expect shattered windows, extensive damage to roofs, siding, and vehicles.) (If Extremely Destructive: You are in a life-threatening situation. Flying debris may be deadly to those caught without shelter. Mobile homes will be heavily damaged or destroyed. Homes and businesses will have substantial roof and window damage. Expect extensive tree damage and power outages.)
+
+* This severe thunderstorm(s) will be near (area) around (time).
+
+* Locations/other locations impacted include…(list areas).
+
+* (This includes (interstate/highway number) in (state) between mile markers/exits (number) and (number).)
+
+PRECAUTIONARY/PREPAREDNESS ACTIONS...
+
+For your protection move to an interior room on the lowest floor of a building/get inside a sturdy structure and stay away from windows.
+
+&amp;&amp;
+
+Sometimes Listed Precautionary Actions
+“Along with large hail and damaging winds, continuous cloud to ground lightning is occurring with this storm. Move indoors immediately. Lightning is one of nature’s leading killers. Remember, if you can hear thunder, you are close enough to be struck by lightning.”
+”This is a dangerous storm. Prepare immediately for large hail and/or damaging winds capable of producing significant damage. People outside should move to a shelter inside a strong building and away from windows.”
+“If on or near (surrounding bodies of water), get out of the water immediately and move indoors, or inside a vehicle. Remember, lightning can strike up to 15 miles from the parent thunderstorm. Move into safe shelter now! Do not be caught in the water during a thunderstorm.”
+“(Very) heavy/torrential rainfall is occurring with this storm, and may lead to flash flooding. Do not drive your vehicle through flooded roadways.”
+“Remain alert for a possible tornado! Tornadoes can develop quickly from severe thunderstorms. If you spot a tornado go at once into the basement or small central room in a sturdy shelter.”
+“This storm is producing large quantities of hail. Driving through deep hail is like driving on slushy roads. Slow down and do not brake suddenly.”
+”This thunderstorm will produce damaging winds resulting in areas of near zero visibility in blowing dirt. Use extreme caution if you must travel and be alert for rapidly changing visibility.”
+”Wind damage with this storm will occur before any rain or lightning. Do not wait for the sound of thunder before taking cover. SEEK SHELTER IMMEDIATELY inside a sturdy structure and stay away from windows.”
+”Locally heavy rain will quickly reduce visibility and result in ponding of water on roadways, standing water in low lying areas, and minor flooding of creeks, streams, and areas of poor drainage. Drivers are urged to slow down and use extra caution to avoid hydroplaning.”
+”Prepare immediately for large hail and damaging winds, as well as deadly cloud to ground lightning. For your safety, move to an interior room on the lowest floor of a sturdy building. Stay away from windows.”
+”Straight line winds can blow down trees, power lines, and damage mobile homes and other buildings. Seek shelter in a sturdy structure until the storm has passed. Stay away from windows as flying debris generated by damaging winds can be deadly.”
+"Prepare immediately for large hail and deadly cloud to ground lightning. Seek shelter inside a well-built structure. Stay away from windows. Funnel clouds are possible."</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

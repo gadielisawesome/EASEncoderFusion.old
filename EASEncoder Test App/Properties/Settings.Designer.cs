@@ -88,15 +88,37 @@ namespace EASEncoder_UI.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool LowRes {
             get {
                 return ((bool)(this["LowRes"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public bool ShowNonCompliant {
+            get {
+                return ((bool)(this["ShowNonCompliant"]));
+            }
             set {
-                this["LowRes"] = value;
+                this["ShowNonCompliant"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Swipe {
+            get {
+                return ((string)(this["Swipe"]));
+            }
+            set {
+                this["Swipe"] = value;
             }
         }
     }

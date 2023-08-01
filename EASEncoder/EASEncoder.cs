@@ -6,35 +6,43 @@ using System.Speech.AudioFormat;
 using System.Speech.Synthesis;
 using System.Text;
 using EASEncoder.Models;
-using NAudio.Wave;
 using SpeechLib;
 
 namespace EASEncoderFusion
 {
-    public static class EASEncoderFusion
+    public static class EASEncoder
     {
         private static readonly SAMEAudioBit Mark = new SAMEAudioBit(2083, (decimal)0.00192);
         private static readonly SAMEAudioBit Space = new SAMEAudioBit(1563, (decimal)0.00192);
         private static int[] _headerSamples;
         private static int TotalHeaderSamples => _headerSamples.Length;
         private static List<int> _silenceSamples;
+        private static List<int> _SASMEXSamples;
         private static int[] _eomSamples;
         private static int TotalEomSamples => _eomSamples.Length;
         private static byte[] _ebsTonesStream;
         private static int _ebsToneSamples = 352800;
         private static byte[] _nwsTonesStream;
         private static int _nwstoneSamples = 352800;
+        private static byte[] _censorTonesStream;
+        private static int _censorToneSamples = 352800;
+        private static byte[] _wr120TonesStream;
+        private static int _wr120ToneSamples = 352800;
         private static byte[] _announcementStream;
         private static int _announcementSamples;
+        //private static readonly int totalSilenceSamples = 176400;
         private static readonly int totalSilenceSamples = 176400;
+        private static readonly int totalSASMEXSamples = 44100;
         private static int _totalSamples;
         private static bool _useEbsTone = true;
         private static bool _useNwsTone;
+        private static bool _useCensorTone;
+        private static bool _useWR120Tone;
         private static string _announcement = string.Empty;
 
         private static readonly Dictionary<decimal, List<int>> headerByteCache = new Dictionary<decimal, List<int>>();
 
-        public static void CreateNewMessageFromRawData(string message, bool ebsTone = true, bool nwsTone = false, string announcement = "", string filename = "output")
+        public static void CreateNewMessageFromRawData(string message, bool ebsTone = true, bool nwsTone = false, bool censorTone = false, string announcement = "", string filename = "output")
         {
             // These two strings are VERY important and altering them will cause any listening radios to malfunction or not respond to the EAS message.
             // Do not alter these strings!
@@ -42,6 +50,7 @@ namespace EASEncoderFusion
             string EOM = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xabNNNN";
             _useEbsTone = ebsTone;
             _useNwsTone = nwsTone;
+            _useCensorTone = censorTone;
             _announcement = announcement;
 
             _headerSamples = new int[0];
@@ -112,8 +121,14 @@ namespace EASEncoderFusion
             _nwsTonesStream = GenerateNwsTones();
             _nwstoneSamples = _nwsTonesStream.Length;
 
+            _censorTonesStream = GenerateCensorTones();
+            _censorToneSamples = _censorTonesStream.Length;
+
+            _wr120TonesStream = GenerateCanadaTones();
+            _wr120ToneSamples = _wr120TonesStream.Length;
+
             _totalSamples = (TotalHeaderSamples * 3) + (totalSilenceSamples * 7) + (TotalEomSamples * 3) + (_ebsToneSamples * 8) +
-                           (_nwstoneSamples * 8);
+                           (_nwstoneSamples * 8) + (_censorToneSamples * 8) + (_wr120ToneSamples * 8);
 
             _announcementStream =
                 GenerateVoiceAnnouncement(announcement);
@@ -122,14 +137,16 @@ namespace EASEncoderFusion
             GenerateWavFile(filename);
         }
 
-        public static string CreateNewMessage(EASMessage message, bool ebsTone = true, bool nwsTone = false,
-            string announcement = "", bool burst = false, string filename = "output")
+        public static string CreateNewMessage(EASMessage message, bool ebsTone = true, bool nwsTone = false, bool censorTone = false, bool wr120Tone = false, string announcement = "", bool burst = false, string filename = "output")
         {
             // These two strings are VERY important and altering them will cause any listening radios to malfunction or not respond to the EAS message.
             // Do not alter these strings!
             string EOM = "\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xab\xabNNNN";
             _useEbsTone = ebsTone;
             _useNwsTone = nwsTone;
+            _useCensorTone = censorTone;
+            _useWR120Tone = wr120Tone;
+
             _announcement = announcement;
 
             _headerSamples = new int[0];
@@ -145,8 +162,15 @@ namespace EASEncoderFusion
                 //    //byteArray.A
                 //}
 
+                // 0.5 seconds of delay between each header
+
                 //byteArray = Encoding.Default.GetBytes($"{Preamble}ZCZC-{message}" + $"{Preamble}ZCZC-{message}" + $"{Preamble}ZCZC-{message}");
-                byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString() + message.ToSameHeaderString() + message.ToSameHeaderString());
+                //_SASMEXSamples = new List<int>();
+                //while (_SASMEXSamples.Count < 88200)
+                //{
+                //    _silenceSamples.Add(0);
+                //}
+                byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString() + "\0\0\0\0\0\0\0\0\0\0\0\0" + message.ToSameHeaderString() + "\0\0\0\0\0\0\0\0\0\0\0\0" + message.ToSameHeaderString());
 
             }
             else byteArray = Encoding.Default.GetBytes(message.ToSameHeaderString());
@@ -176,8 +200,9 @@ namespace EASEncoderFusion
                 _headerSamples = c;
             }
 
+            // END OF MESSAGE ----------------------------------------------------------------------------------------
             _eomSamples = new int[0];
-            byteArray = Encoding.Default.GetBytes($"{EOM}");
+            byteArray = Encoding.Default.GetBytes(EOM);
             volume = 5000;
 
             byteSpec = new List<SameWavBit>();
@@ -215,8 +240,14 @@ namespace EASEncoderFusion
             _nwsTonesStream = GenerateNwsTones();
             _nwstoneSamples = _nwsTonesStream.Length;
 
+            _censorTonesStream = GenerateCensorTones();
+            _censorToneSamples = _censorTonesStream.Length;
+
+            _wr120TonesStream = GenerateCanadaTones();
+            _wr120ToneSamples = _wr120TonesStream.Length;
+
             _totalSamples = (TotalHeaderSamples * 3) + (totalSilenceSamples * 7) + (TotalEomSamples * 3) + (_ebsToneSamples * 8) +
-                           (_nwstoneSamples * 8);
+                           (_nwstoneSamples * 8) + (_censorToneSamples * 8) + (_wr120ToneSamples * 8);
 
             _announcementStream =
                 GenerateVoiceAnnouncement(announcement);
@@ -227,11 +258,14 @@ namespace EASEncoderFusion
             return message.ToSameHeaderString();
         }
 
-        public static MemoryStream GetMemoryStreamFromNewMessage(EASMessage message, bool ebsTone = true,
-            bool nwsTone = false, string announcement = "", bool burst = false)
+        public static MemoryStream GetMemoryStreamFromNewMessage(EASMessage message, bool ebsTone = true, bool nwsTone = false, bool censorTone = false, bool wr120Tone = false,
+            string announcement = "", bool burst = false)
         {
             _useEbsTone = ebsTone;
             _useNwsTone = nwsTone;
+            _useCensorTone = censorTone;
+            _useWR120Tone = wr120Tone;
+
             _announcement = announcement;
 
             _headerSamples = new int[0];
@@ -262,7 +296,6 @@ namespace EASEncoderFusion
             byte thisByte;
             SAMEAudioBit thisBit;
 
-            // Finally made this loop efficient! No more TODO.
             var powersOf2 = new short[8];
             for (var i = 0; i < 8; i++)
             {
@@ -302,7 +335,7 @@ namespace EASEncoderFusion
 
                 for (var e = 0; e < 8; e++)
                 {
-                    thisBit = ((thisByte & (short)Math.Pow(2, e)) != 0 ? Mark : Space);
+                    thisBit = (thisByte & (short)Math.Pow(2, e)) != 0 ? Mark : Space;
                     byteSpec.Add(new SameWavBit(thisBit.frequency, thisBit.length, volume));
                 }
             }
@@ -324,8 +357,14 @@ namespace EASEncoderFusion
             _nwsTonesStream = GenerateNwsTones();
             _nwstoneSamples = _nwsTonesStream.Length;
 
+            _censorTonesStream = GenerateCensorTones();
+            _censorToneSamples = _censorTonesStream.Length;
+
+            _wr120TonesStream = GenerateCanadaTones();
+            _wr120ToneSamples = _wr120TonesStream.Length;
+
             _totalSamples = (TotalHeaderSamples * 3) + (totalSilenceSamples * 7) + (TotalEomSamples * 3) + (_ebsToneSamples * 8) +
-                           (_nwstoneSamples * 8);
+                           (_nwstoneSamples * 8) + (_censorToneSamples * 8) * (_wr120ToneSamples * 8);
 
             _announcementStream =
                 GenerateVoiceAnnouncement(announcement);
@@ -341,7 +380,7 @@ namespace EASEncoderFusion
             {
                 for (var c = 0; c < 2; c++)
                 {
-                    var sample = (decimal)(byteSpec.volume * Math.Sin((2 * Math.PI) * (i / 44100d) * byteSpec.frequency));
+                    var sample = (decimal)(byteSpec.volume * Math.Sin(2 * Math.PI * (i / 44100d) * byteSpec.frequency));
                     if (headerByteCache.ContainsKey(sample))
                     {
                         computedSamples.AddRange(headerByteCache[sample]);
@@ -401,6 +440,18 @@ namespace EASEncoderFusion
             if (_useNwsTone)
             {
                 _totalSamples += (_nwstoneSamples * 8) + totalSilenceSamples;
+            }
+
+            //CENSOR Tone
+            if (_useCensorTone)
+            {
+                _totalSamples += (_censorToneSamples * 8) + totalSilenceSamples;
+            }
+            
+            //CENSOR Tone
+            if (_useWR120Tone)
+            {
+                _totalSamples += (_wr120ToneSamples * 8) + totalSilenceSamples;
             }
 
             //Spoken announcement
@@ -502,7 +553,40 @@ namespace EASEncoderFusion
                     wr.Write((byte)thisChar);
                 }
             }
+            
+            // CENSOR Tone
+            if (_useCensorTone)
+            {
+                for (int seconds = 0; seconds < 8; seconds++)
+                {
+                    for (int loopCountz = 0; loopCountz < _censorTonesStream.Length; loopCountz++)
+                    {
+                        wr.Write(_censorTonesStream[loopCountz]);
+                    }
+                }
 
+                foreach (var thisChar in _silenceSamples)
+                {
+                    wr.Write((byte)thisChar);
+                }
+            }
+            
+            // WR120 Tone
+            if (_useWR120Tone)
+            {
+                for (int seconds = 0; seconds < 8; seconds++)
+                {
+                    for (int loopCountz = 0; loopCountz < _wr120TonesStream.Length; loopCountz++)
+                    {
+                        wr.Write(_wr120TonesStream[loopCountz]);
+                    }
+                }
+
+                foreach (var thisChar in _silenceSamples)
+                {
+                    wr.Write((byte)thisChar);
+                }
+            }
 
             // Spoken announcement
             if (!string.IsNullOrEmpty(_announcement))
@@ -606,7 +690,7 @@ namespace EASEncoderFusion
             var samplesPerSecond = 44100;
             var samples = samplesPerSecond * 2;
 
-            // Play the tone for 5000 milliseconds.
+            // Play the CENSOR tone for 5000 milliseconds.
             double ampl = 5000;
             var concert = 1.0;
             for (var i = 0; i < samples / 2; i++)
@@ -621,72 +705,109 @@ namespace EASEncoderFusion
             return stream.ToArray();
         }
 
-        public static byte[] Generate(string announcement)
+        private static byte[] GenerateCanadaTones()
         {
-            // Create a SpVoice instance
-            SpVoice voice = new SpVoice();
+            // Create a memory stream, and a binary writer pointing to the memory stream.
+            var stream = new MemoryStream();
+            var writer = new BinaryWriter(stream);
 
-            // Create a MemoryStream to store the speech output
-            MemoryStream waveStream = new MemoryStream();
+            // Set the samples, and double it.
+            var samplesPerSecond = 44100;
+            var samples = samplesPerSecond * 2;
 
-            // Set the audio output to a temporary file
-            string tempFileName = Path.GetTempFileName();
-            //SpFileStream fileStream = new SpFileStream(tempFileName, SpeechStreamFileMode.SSFMCreateForWrite);
-            //voice.AudioOutputStream = fileStream;
-
-            // Set the voice to "ScanSoft Tom" (SAPI 4 voice)
-            SpObjectToken desiredVoice = GetVoiceByName(voice, "VW Paul");
-
-            if (desiredVoice != null)
+            // Play the CENSOR tone for 5000 milliseconds.
+            double ampl = 5000;
+            var concert = 1.0;
+            for (var i = 0; i < samples / 2; i++)
             {
-                voice.Voice = desiredVoice;
+                var t = i / (double)samplesPerSecond;
+                var s = (short)(ampl * Math.Sin(t * 1000.0 * concert * 2.0 * Math.PI));
+                writer.Write(s);
+                writer.Write(s);
             }
-            else
-            {
-                voice.Voice = voice.GetVoices().Item(0);
-            }
+            writer.Close();
+            stream.Close();
+            return stream.ToArray();
 
-            // Set the volume and rate
-            voice.Volume = 100; // Adjust the volume if desired
-            voice.Rate = 1; // Adjust the rate if desired
 
-            // Speak the input
-            voice.Speak(announcement, SpeechVoiceSpeakFlags.SVSFlagsAsync);
-
-            // Wait for the speech to complete
-            while (voice.Status.RunningState == SpeechRunState.SRSEIsSpeaking)
-            {
-                System.Threading.Thread.Sleep(50);
-            }
-
-            // Reset the MemoryStream position to the beginning
-            waveStream.Position = 0;
-
-            // Read the speech output from the temporary file into the MemoryStream
-            //fileStream.Close();
-            //fileStream = new SpFileStream(tempFileName, SpeechStreamFileMode.SSFMOpenForRead);
-            //byte[] buffer = new byte[1024];
-            //int bytesRead;
-            //while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+            //for (var i = 0; i < samples / 2; i++)
             //{
-            //    waveStream.Write(buffer, 0, bytesRead);
+            //    //for (var j = 0; j < 16; j++)
+            //    {
+            //        var t = i / (double)samplesPerSecond;
+            //        var s = (short)(0012 * Math.Sin(t * 800.0 * 1.0 * 2.0 * Math.PI));
+            //        var u = i / (double)samplesPerSecond;
+            //        var v = (short)(0012 * Math.Sin(u * 2133.0 * 1.0 * 2.0 * Math.PI));
+            //        writer.Write(s);
+            //        writer.Write(s);
+            //        writer.Write(v);
+            //        writer.Write(v);
+            //    }
             //}
-            //fileStream.Close();
 
-            // Obtain the processed announcement as an array
-            byte[] announcementBytes = waveStream.ToArray();
-
-            // Clean up resources
-            voice.AudioOutputStream = null;
-            waveStream.Close();
-            File.Delete(tempFileName);
-
-            return announcementBytes;
+            //writer.Close();
+            //stream.Close();
+            //return stream.ToArray();
         }
+
+        //public static byte[] GenerateVoiceClip(string announcement)
+        //{
+        //    // Create a SpVoice instance
+        //    SpVoice voice = new SpVoice();
+
+        //    // Create a MemoryStream to store the speech output
+        //    MemoryStream waveStream = new MemoryStream();
+
+        //    // Set the audio output to the MemoryStream
+        //    SpMemoryStream outputStream = new SpMemoryStream();
+        //    voice.AudioOutputStream = outputStream;
+
+        //    // Set the voice to "ScanSoft Tom" (SAPI 4 voice)
+        //    SpObjectToken desiredVoice = GetVoiceByName(voice, "VW Paul");
+
+        //    if (desiredVoice != null)
+        //    {
+        //        voice.Voice = desiredVoice;
+        //    }
+        //    else
+        //    {
+        //        voice.Voice = voice.GetVoices().Item(0);
+        //    }
+
+        //    // Set the volume and rate
+        //    voice.Volume = 100; // Adjust the volume if desired
+        //    voice.Rate = 1; // Adjust the rate if desired
+
+        //    // Speak the input
+        //    voice.Speak(announcement, SpeechVoiceSpeakFlags.SVSFlagsAsync);
+
+        //    // Wait for the speech to complete
+        //    while (voice.Status.RunningState == SpeechRunState.SRSEIsSpeaking)
+        //    {
+        //        System.Threading.Thread.Sleep(50);
+        //    }
+
+        //    // Reset the MemoryStream position to the beginning
+        //    waveStream.Position = 0;
+
+        //    // Read the speech output from the MemoryStream
+        //    byte[] buffer = outputStream.GetData() as byte[];
+        //    waveStream.Write(buffer, 0, buffer.Length);
+
+        //    // Obtain the processed announcement as an array
+        //    byte[] announcementBytes = waveStream.ToArray();
+
+        //    // Clean up resources
+        //    voice.AudioOutputStream = null;
+        //    waveStream.Close();
+
+        //    return announcementBytes;
+        //}
 
 
         public static byte[] GenerateVoiceAnnouncement(string announcement, int volume = 100, int rate = 1)
         {
+            //return Generate(announcement).ToArray();
             //return Generate(announcement);
             // Create a speech synthesizer, then a memory stream to pipe the output.
             var synthesizer = new SpeechSynthesizer();
@@ -725,6 +846,9 @@ namespace EASEncoderFusion
             // speech rate: 1
             #endregion
 
+            // Select the voice we will use for the announcement.
+            synthesizer.SelectVoiceByHints(VoiceGender.Female);
+
             // Now, we create the announcement.
             synthesizer.Speak(announcement);
 
@@ -734,20 +858,20 @@ namespace EASEncoderFusion
             return waveStream.ToArray();
         }
 
-        static SpObjectToken GetVoiceByName(SpVoice voice, string voiceName)
-        {
-            // Get the available voices
-            ISpeechObjectTokens voices = voice.GetVoices();
+        //static SpObjectToken GetVoiceByName(SpVoice voice, string voiceName)
+        //{
+        //    // Get the available voices
+        //    ISpeechObjectTokens voices = voice.GetVoices();
 
-            foreach (ISpeechObjectToken voiceToken in voices)
-            {
-                if (voiceToken.GetDescription() == voiceName)
-                {
-                    return (SpObjectToken)voiceToken;
-                }
-            }
+        //    foreach (ISpeechObjectToken voiceToken in voices)
+        //    {
+        //        if (voiceToken.GetDescription() == voiceName)
+        //        {
+        //            return (SpObjectToken)voiceToken;
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
     }
 }

@@ -3484,27 +3484,15 @@ namespace EASEncoder.Models
             new SAMEState(8, "Colorado"),
             new SAMEState(9, "Connecticut"),
         };
-
-        public static List<SAMESubdivision> Subdivisions = new List<SAMESubdivision>
-        {
-            new SAMESubdivision(0, "Entire Region"),
-            new SAMESubdivision(1, "Northwest"),
-            new SAMESubdivision(2, "North"),
-            new SAMESubdivision(3, "Northeast"),
-            new SAMESubdivision(4, "West"),
-            new SAMESubdivision(5, "Central"),
-            new SAMESubdivision(6, "East"),
-            new SAMESubdivision(7, "Southwest"),
-            new SAMESubdivision(8, "South"),
-            new SAMESubdivision(9, "Southeast")
-        };
     }
 
     public static class MessageTypes
     {
         public static List<SAMEMessageOriginator> Originators = new List<SAMEMessageOriginator>
         {
-            new SAMEMessageOriginator("MCK", "Mock Alert"),
+            new SAMEMessageOriginator("MCK", "Mock Alert", false),
+            new SAMEMessageOriginator("JAX", "Jaxon", false),
+
             // United States
             new SAMEMessageOriginator("EAS", "Emergency Alert System Participant"),
             new SAMEMessageOriginator("CIV", "Civil Authority"),
@@ -3527,22 +3515,40 @@ namespace EASEncoder.Models
 
         public static List<SAMEMessageAlertCode> AlertCodes = new List<SAMEMessageAlertCode>
         {
-            // United States
+            // Custom alert codes.
+            new SAMEMessageAlertCode("THW", "Thug Shaker Warning", false),
+            new SAMEMessageAlertCode("THA", "Thug Shaker Watch", false),
+            new SAMEMessageAlertCode("XTR", "Xtreme Weather Warning", false),
+
+            // Used in the EBS (Emergency Broadcast System). Should not be broadcasted or used anymore.
             new SAMEMessageAlertCode("EAN", "Emergency Action Notification"),
             new SAMEMessageAlertCode("EAT", "Emergency Action Termination"),
+            
+            // These are national alert codes.
             new SAMEMessageAlertCode("NIC", "National Information Center"),
             new SAMEMessageAlertCode("NPT", "National Periodic Test"),
             new SAMEMessageAlertCode("NAT", "National Audible Test"),
             new SAMEMessageAlertCode("NST", "National Slient Test"),
+
+            // These are required tests.
             new SAMEMessageAlertCode("RMT", "Required Monthly Test"),
             new SAMEMessageAlertCode("RWT", "Required Weekly Test"),
+
+            // These are required tests. (unofficial - most likely will be recognized as "Unrecognized Message")
+            //new SAMEMessageAlertCode("RDT", "Required Daily Test"),
+            //new SAMEMessageAlertCode("RYT", "Required Yearly Test"),
+
+            // These are administratives codes.
             new SAMEMessageAlertCode("ADR", "Administrative Message"),
+
+            // These are other codes.
             new SAMEMessageAlertCode("AVW", "Avalanche Warning"),
             new SAMEMessageAlertCode("AVA", "Avalanche Watch"),
             new SAMEMessageAlertCode("BLU", "Blue Alert"),
             new SAMEMessageAlertCode("BHW", "Biological Hazard Warning"),
             new SAMEMessageAlertCode("BZW", "Blizzard Warning"),
             new SAMEMessageAlertCode("BWW", "Boil Water Warning"),
+            new SAMEMessageAlertCode("CAE", "Child Abduction Emergency"),
             new SAMEMessageAlertCode("CDW", "Civil Danger Warning"),
             new SAMEMessageAlertCode("CEM", "Civil Emergency Message"),
             new SAMEMessageAlertCode("CFW", "Coastal Flood Warning"),
@@ -3556,6 +3562,7 @@ namespace EASEncoder.Models
             new SAMEMessageAlertCode("EQW", "Earthquake Warning"),
             new SAMEMessageAlertCode("EVA", "Evacuation Watch"),
             new SAMEMessageAlertCode("EVI", "Evacuation Immediate"),
+            new SAMEMessageAlertCode("EWW", "Extreme Wind Warning"),
             new SAMEMessageAlertCode("FCW", "Food Contamination Warning"),
             new SAMEMessageAlertCode("FRW", "Fire Warning"),
             new SAMEMessageAlertCode("FFW", "Flash Flood Warning"),
@@ -3589,6 +3596,9 @@ namespace EASEncoder.Models
             new SAMEMessageAlertCode("SPW", "Shelter in Place Warning"),
             new SAMEMessageAlertCode("SMW", "Special Marine Warning"),
             new SAMEMessageAlertCode("SPS", "Special Weather Statement"),
+            new SAMEMessageAlertCode("SQW", "Snow Squall Warning"),
+            new SAMEMessageAlertCode("SSW", "Storm Surge Warning"),
+            new SAMEMessageAlertCode("SSA", "Storm Surge Watch"),
             new SAMEMessageAlertCode("TOR", "Tornado Warning"),
             new SAMEMessageAlertCode("TOA", "Tornado Watch"),
             new SAMEMessageAlertCode("TRW", "Tropical Storm Warning"),
@@ -3598,14 +3608,25 @@ namespace EASEncoder.Models
             new SAMEMessageAlertCode("VOW", "Volcano Warning"),
             new SAMEMessageAlertCode("WSW", "Winter Storm Warning"),
             new SAMEMessageAlertCode("WSA", "Winter Storm Watch"),
-            new SAMEMessageAlertCode("WFA", "Wild Fire Watch"),
             new SAMEMessageAlertCode("WFW", "Wild Fire Warning"),
-            new SAMEMessageAlertCode("TXB", "Transmitter Backup On"),
-            new SAMEMessageAlertCode("TXF", "Transmitter Carrier Off"),
-            new SAMEMessageAlertCode("TXO", "Transmitter Carrier On"),
+            new SAMEMessageAlertCode("WFA", "Wild Fire Watch"),
+
+            // Usually used internally. Sometimes used by NOAA stations to indicate transmitter outages.
+
             new SAMEMessageAlertCode("TXP", "Transmitter Primary On"),
-            // Canada
-            new SAMEMessageAlertCode("CAE", "Child Abduction Emergency"),
+            new SAMEMessageAlertCode("TXB", "Transmitter Backup On"),
+            new SAMEMessageAlertCode("TXO", "Transmitter Carrier On"),
+            new SAMEMessageAlertCode("TXF", "Transmitter Carrier Off"),
+
+            // Some weather radios may use the end of the alert code to try and filter the type of alert it is. For example, if a Squall Warning (SQW) is issued, and the weather radio doesn't know what an SQW is, it will use the end of the code, W (Warning).
+            // This also works for bad signals.
+
+            new SAMEMessageAlertCode("11E", "Unrecognized Emergency (**E)"),
+            new SAMEMessageAlertCode("11W", "Unrecognized Warning (**W)"),
+            new SAMEMessageAlertCode("11A", "Unrecognized Watch (**A)"),
+            new SAMEMessageAlertCode("11S", "Unrecognized Statement (**S)"),
+            new SAMEMessageAlertCode("111", "Unrecognized Message (***)"),
+
             //new SAMEMessageAlertCode("CPS", "[CAN] Canadian Public Safety Alert"),
             //new SAMEMessageAlertCode("CNS", "[CAN] Canadian National Security Message"),
             //new SAMEMessageAlertCode("CTM", "[CAN] Canadian Test Message"),
@@ -3669,10 +3690,7 @@ namespace EASEncoder.Models
             return String;
         }
 
-        internal string ToSameEndOfMessageString()
-        {
-            return $"{Preamble}{"NNNN"}";
-        }
+        internal string ToSameEndOfMessageString() { return $"{Preamble}{"NNNN"}"; }
 
         internal string ToSameHeaderString()
         {
@@ -3681,6 +3699,7 @@ namespace EASEncoder.Models
                     current +
                     $"{ZeroPad(thisRegion.Subdivision.Id.ToString(), 1)}{ZeroPad(thisRegion.State.Id.ToString(), 2)}{ZeroPad(thisRegion.County.Id.ToString(), 3)}-");
             headerRegions = headerRegions.Remove(headerRegions.Length - 1);
+
             if (_originator == "MCK")
             {
                 return $"0{Preamble}" +
@@ -3693,7 +3712,8 @@ namespace EASEncoder.Models
                    $"{ZeroPad(_start.Hour.ToString(), 2)}" +
                    $"{ZeroPad(_start.Minute.ToString(), 2)}-" +
                    $"{_sender}-";
-            } else return $"{Preamble}" +
+            }
+            else return $"{Preamble}" +
                    $"{"ZCZC"}-" +
                    $"{_originator}-" +
                    $"{_code}-" +

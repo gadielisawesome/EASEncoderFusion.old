@@ -24,30 +24,30 @@ namespace EASEncoder_UI
 
                 Process.Start(tempDirectory, "");
 
-                using (Stream zipStream = new MemoryStream(Properties.Resources.usbmmidd_v2))
-                {
-                    using (ZipArchive archive = new ZipArchive(zipStream))
-                    {
-                        foreach (ZipArchiveEntry entry in archive.Entries)
-                        {
-                            string destinationPath = Path.Combine(tempDirectory, entry.FullName);
+                //using (Stream zipStream = new MemoryStream(Properties.Resources.usbmmidd_v2))
+                //{
+                //    using (ZipArchive archive = new ZipArchive(zipStream))
+                //    {
+                //        foreach (ZipArchiveEntry entry in archive.Entries)
+                //        {
+                //            string destinationPath = Path.Combine(tempDirectory, entry.FullName);
 
-                            // Create directory structure if necessary
-                            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+                //            // Create directory structure if necessary
+                //            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
 
-                            if (entry.Length > 0)
-                            {
-                                using (Stream entryStream = entry.Open())
-                                {
-                                    using (FileStream fileStream = new FileStream(destinationPath, FileMode.Create))
-                                    {
-                                        entryStream.CopyTo(fileStream);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                //            if (entry.Length > 0)
+                //            {
+                //                using (Stream entryStream = entry.Open())
+                //                {
+                //                    using (FileStream fileStream = new FileStream(destinationPath, FileMode.Create))
+                //                    {
+                //                        entryStream.CopyTo(fileStream);
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
 
                 string pathToDeviceInstaller = tempDirectory + "deviceinstaller64.exe";
 
@@ -161,30 +161,30 @@ namespace EASEncoder_UI
                     {
                         string tempDirectory = Path.Combine(Path.GetTempPath(), "usbmmidd\\");
 
-                        using (Stream zipStream = new MemoryStream(Properties.Resources.usbmmidd_v2))
-                        {
-                            using (ZipArchive archive = new ZipArchive(zipStream))
-                            {
-                                foreach (ZipArchiveEntry entry in archive.Entries)
-                                {
-                                    string destinationPath = Path.Combine(tempDirectory, entry.FullName);
+                        //using (Stream zipStream = new MemoryStream(Properties.Resources.usbmmidd_v2))
+                        //{
+                        //    using (ZipArchive archive = new ZipArchive(zipStream))
+                        //    {
+                        //        foreach (ZipArchiveEntry entry in archive.Entries)
+                        //        {
+                        //            string destinationPath = Path.Combine(tempDirectory, entry.FullName);
 
-                                    // Create directory structure if necessary
-                                    Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+                        //            // Create directory structure if necessary
+                        //            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
 
-                                    if (entry.Length > 0)
-                                    {
-                                        using (Stream entryStream = entry.Open())
-                                        {
-                                            using (FileStream fileStream = new FileStream(destinationPath, FileMode.Create))
-                                            {
-                                                entryStream.CopyTo(fileStream);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        //            if (entry.Length > 0)
+                        //            {
+                        //                using (Stream entryStream = entry.Open())
+                        //                {
+                        //                    using (FileStream fileStream = new FileStream(destinationPath, FileMode.Create))
+                        //                    {
+                        //                        entryStream.CopyTo(fileStream);
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
 
                         string pathToDeviceInstaller = tempDirectory + "deviceinstaller64.exe";
 
