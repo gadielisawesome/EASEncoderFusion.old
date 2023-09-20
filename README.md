@@ -55,17 +55,6 @@ This is broken down as follows:
     * CIV - Civil Authorities (Governor, state/local emergency management, local police/fire officials)
     * WXR - National Weather Service or Environment Canada (Any weather-related alerts)
     * EAS - EAS Participant (Broadcasters, generally only used with test messages)
-    * CAP - Common Alerting Protocol
-    * CAN - Environment Canada
-    * CCS - Canadian Coast Guard
-    * CDEM - Civil Defence Emergency Measures
-    * GAC - Government of Canada
-    * PSS - Public Safety Canada
-    * MXE - Mexican EAS Participant
-    * NWS - Mexican National Weather Service
-    * CEPC - Mexican Civil Protect
-    * FGR - Mexican Attorney General's Office
-    * SAT - Mexican Tax Administrator Service
     * ~~EAN - Emergency Action Notification Network (previously used to send Emergency Action Notifications, no longer used)~~
 3. EEE - Event code
     * There are a lot to list, especially since I've added in ALL from Canada and Mexico. Check the source code for a complete list.
